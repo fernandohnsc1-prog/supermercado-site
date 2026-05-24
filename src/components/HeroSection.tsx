@@ -67,15 +67,6 @@ export default function HeroSection() {
             <h2 className="text-5xl md:text-6xl lg:text-7xl font-black uppercase tracking-tight">Müller</h2>
             <span className="inline-block w-3 h-3 bg-yellow-400 rotate-45 mt-2" />
             <p className="text-lg md:text-xl italic opacity-80 mt-2">pra viver bem</p>
-            <a
-              href="https://cartao.redemuller.com.br/cartao"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 mt-4 bg-white text-orange-600 font-bold px-6 py-3 rounded-xl text-sm hover:bg-orange-50 hover:scale-105 transition-all duration-300 shadow-lg"
-            >
-              <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 14H4V6h16v12zm-8-1h4v-2h-4v2zm-6-4h10v-2H6v2zm0-4h10V7H6v2z"/></svg>
-              Pedir Cartão
-            </a>
           </div>
         </div>
 
@@ -85,6 +76,15 @@ export default function HeroSection() {
             className="bg-white text-orange-600 font-bold px-10 py-4 rounded-2xl text-lg hover:bg-orange-50 hover:scale-105 transition-all duration-300 shadow-xl"
           >
             Ver encartes
+          </a>
+          <a
+            href="https://cartao.redemuller.com.br/cartao"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="bg-white text-orange-600 font-bold px-10 py-4 rounded-2xl text-lg hover:bg-orange-50 hover:scale-105 transition-all duration-300 shadow-xl flex items-center gap-2"
+          >
+            <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 14H4V6h16v12zm-8-1h4v-2h-4v2zm-6-4h10v-2H6v2zm0-4h10V7H6v2z"/></svg>
+            Pedir Cartão
           </a>
           <a
             href="#sorteios"
