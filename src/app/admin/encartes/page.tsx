@@ -46,7 +46,13 @@ export default function EncartesPage() {
     carregar()
   }
 
-  useEffect(() => { carregar() }, [])
+  useEffect(() => {
+    let active = true
+    fetch('/api/encartes')
+      .then((r) => r.json())
+      .then((data) => { if (active) { setEncartes(data); setCarregando(false) } })
+    return () => { active = false }
+  }, [])
 
   function formatarData(data: string) {
     return new Date(data + 'T00:00:00').toLocaleDateString('pt-BR')
@@ -58,28 +64,26 @@ export default function EncartesPage() {
 
   return (
     <div>
-      {/* Cabeçalho */}
       <div className="flex items-center justify-between mb-8">
         <div>
-          <h1 className="text-2xl font-bold text-white">Encartes</h1>
-          <p className="text-gray-400 text-sm mt-1">Gerencie os encartes do site</p>
+          <h1 className="text-2xl font-bold text-gray-800">Encartes</h1>
+          <p className="text-gray-500 text-sm mt-1">Gerencie os encartes do site</p>
         </div>
         <Link
           href="/admin/encartes/novo"
-          className="bg-orange-600 hover:bg-orange-500 text-white text-sm font-semibold px-5 py-2.5 rounded-xl transition"
+          className="bg-orange-600 hover:bg-orange-700 text-white text-sm font-semibold px-5 py-2.5 rounded-xl transition shadow-md"
         >
           + Novo encarte
         </Link>
       </div>
 
-      {/* Lista */}
       {carregando ? (
-        <p className="text-gray-400">Carregando...</p>
+        <p className="text-gray-500">Carregando...</p>
       ) : encartes.length === 0 ? (
-        <div className="bg-gray-900 border border-gray-800 rounded-2xl p-12 text-center">
+        <div className="bg-white border border-orange-100 rounded-2xl p-12 text-center">
           <p className="text-4xl mb-3">🗞️</p>
-          <p className="text-gray-400">Nenhum encarte cadastrado ainda.</p>
-          <Link href="/admin/encartes/novo" className="text-orange-400 text-sm mt-2 inline-block hover:underline">
+          <p className="text-gray-500">Nenhum encarte cadastrado ainda.</p>
+          <Link href="/admin/encartes/novo" className="text-orange-600 text-sm mt-2 inline-block hover:underline">
             Criar primeiro encarte
           </Link>
         </div>
@@ -88,10 +92,8 @@ export default function EncartesPage() {
           {encartes.map((encarte) => {
             const vencido = estaVencido(encarte.data_fim)
             return (
-              <div key={encarte.id} className="bg-gray-900 border border-gray-800 rounded-2xl p-6">
+              <div key={encarte.id} className="bg-white border border-orange-100 rounded-2xl p-6 hover:shadow-md transition">
                 <div className="flex items-start justify-between gap-4">
-
-                  {/* Info */}
                   <div className="flex-1">
                     <div className="flex items-center gap-2 mb-2 flex-wrap">
                       {encarte.categoria && (
@@ -106,35 +108,34 @@ export default function EncartesPage() {
                         </span>
                       )}
                       {vencido && (
-                        <span className="text-xs bg-gray-800 text-gray-500 px-2.5 py-1 rounded-full">
+                        <span className="text-xs bg-gray-100 text-gray-500 px-2.5 py-1 rounded-full">
                           Expirado
                         </span>
                       )}
                       {!encarte.ativo && !vencido && (
-                        <span className="text-xs bg-yellow-950 text-yellow-500 px-2.5 py-1 rounded-full">
+                        <span className="text-xs bg-yellow-50 text-yellow-600 px-2.5 py-1 rounded-full border border-yellow-200">
                           Desativado
                         </span>
                       )}
                       {encarte.ativo && !vencido && (
-                        <span className="text-xs bg-green-950 text-green-500 px-2.5 py-1 rounded-full">
+                        <span className="text-xs bg-green-50 text-green-600 px-2.5 py-1 rounded-full border border-green-200">
                           Ativo
                         </span>
                       )}
                     </div>
 
-                    <h2 className="text-white font-semibold text-lg">{encarte.titulo}</h2>
+                    <h2 className="text-gray-800 font-semibold text-lg">{encarte.titulo}</h2>
                     {encarte.descricao && (
-                      <p className="text-gray-400 text-sm mt-1">{encarte.descricao}</p>
+                      <p className="text-gray-500 text-sm mt-1">{encarte.descricao}</p>
                     )}
 
-                    <p className="text-gray-500 text-xs mt-2">
-                      📅 {formatarData(encarte.data_inicio)} até {formatarData(encarte.data_fim)}
+                    <p className="text-gray-400 text-xs mt-2">
+                      {formatarData(encarte.data_inicio)} até {formatarData(encarte.data_fim)}
                       {' · '}
-                      🖼️ {encarte.imagens?.length ?? 0} imagem(ns)
+                      {encarte.imagens?.length ?? 0} imagem(ns)
                     </p>
                   </div>
 
-                  {/* Preview das imagens */}
                   {encarte.imagens && encarte.imagens.length > 0 && (
                     <div className="flex gap-2 flex-shrink-0">
                       {encarte.imagens.slice(0, 3).map((img) => (
@@ -142,11 +143,11 @@ export default function EncartesPage() {
                           key={img.id}
                           src={img.imagem_url}
                           alt=""
-                          className="w-16 h-16 object-cover rounded-lg border border-gray-700"
+                          className="w-16 h-16 object-cover rounded-lg border border-orange-100"
                         />
                       ))}
                       {encarte.imagens.length > 3 && (
-                        <div className="w-16 h-16 bg-gray-800 rounded-lg border border-gray-700 flex items-center justify-center text-gray-400 text-sm font-medium">
+                        <div className="w-16 h-16 bg-orange-50 rounded-lg border border-orange-100 flex items-center justify-center text-orange-500 text-sm font-medium">
                           +{encarte.imagens.length - 3}
                         </div>
                       )}
@@ -154,31 +155,23 @@ export default function EncartesPage() {
                   )}
                 </div>
 
-                {/* Ações */}
-                <div className="flex items-center gap-3 mt-4 pt-4 border-t border-gray-800">
+                <div className="flex items-center gap-3 mt-4 pt-4 border-t border-orange-50">
                   <button
                     onClick={() => toggleAtivo(encarte.id, encarte.ativo)}
                     className={`text-sm px-4 py-2 rounded-xl transition font-medium ${
                       encarte.ativo
-                        ? 'bg-yellow-950 text-yellow-400 hover:bg-yellow-900'
-                        : 'bg-green-950 text-green-400 hover:bg-green-900'
+                        ? 'bg-yellow-50 text-yellow-600 hover:bg-yellow-100 border border-yellow-200'
+                        : 'bg-green-50 text-green-600 hover:bg-green-100 border border-green-200'
                     }`}
                   >
-                    {encarte.ativo ? '⏸ Desativar' : '▶ Ativar'}
+                    {encarte.ativo ? 'Desativar' : 'Ativar'}
                   </button>
-
-                  <Link
-                    href={`/admin/encartes/${encarte.id}/editar`}
-                    className="text-sm px-4 py-2 rounded-xl bg-gray-800 text-gray-300 hover:bg-gray-700 transition"
-                  >
-                    ✏️ Editar
-                  </Link>
 
                   <button
                     onClick={() => deletar(encarte.id)}
-                    className="text-sm px-4 py-2 rounded-xl bg-orange-950 text-orange-400 hover:bg-orange-900 transition ml-auto"
+                    className="text-sm px-4 py-2 rounded-xl bg-red-50 text-red-500 hover:bg-red-100 transition ml-auto border border-red-200"
                   >
-                    🗑 Deletar
+                    Deletar
                   </button>
                 </div>
               </div>

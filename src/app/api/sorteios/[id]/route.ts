@@ -1,6 +1,28 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { supabaseAdmin } from '@/lib/supabase'
-import cloudinary from '@/lib/cloudinary'
+
+export async function GET(
+  _: NextRequest,
+  { params }: { params: Promise<{ id: string }> }
+) {
+  const { id } = await params
+
+  const { data: sorteio, error } = await supabaseAdmin
+    .from('sorteios')
+    .select('*')
+    .eq('id', id)
+    .single()
+
+  if (error) return NextResponse.json({ erro: error.message }, { status: 500 })
+
+  const { data: participantes } = await supabaseAdmin
+    .from('sorteio_participantes')
+    .select('*')
+    .eq('sorteio_id', id)
+    .order('created_at', { ascending: false })
+
+  return NextResponse.json({ ...sorteio, participantes: participantes ?? [] })
+}
 
 export async function PATCH(
   request: NextRequest,
@@ -10,7 +32,7 @@ export async function PATCH(
   const body = await request.json()
 
   const { data, error } = await supabaseAdmin
-    .from('encartes')
+    .from('sorteios')
     .update(body)
     .eq('id', id)
     .select()
@@ -26,19 +48,8 @@ export async function DELETE(
 ) {
   const { id } = await params
 
-  const { data: imagens } = await supabaseAdmin
-    .from('encarte_imagens')
-    .select('cloudinary_id')
-    .eq('encarte_id', id)
-
-  if (imagens && imagens.length > 0) {
-    await Promise.all(
-      imagens.map((img) => cloudinary.uploader.destroy(img.cloudinary_id))
-    )
-  }
-
   const { error } = await supabaseAdmin
-    .from('encartes')
+    .from('sorteios')
     .delete()
     .eq('id', id)
 
