@@ -15,12 +15,14 @@ export default function Home() {
         <SorteiosSection />
         <ProdutosSection />
         {/* Banner Verificados */}
-        <section className="w-full">
-          <img
-            src="/verificados.png"
-            alt="Agora somos verificados — Nos siga para acompanhar tudo nessa nova etapa"
-            className="w-full h-auto"
-          />
+        <section className="bg-orange-50 py-10">
+          <div className="max-w-4xl mx-auto px-4">
+            <img
+              src="/verificados.png"
+              alt="Agora somos verificados — Nos siga para acompanhar tudo nessa nova etapa"
+              className="w-full h-auto rounded-2xl shadow-lg"
+            />
+          </div>
         </section>
       </main>
       <SiteFooter />
