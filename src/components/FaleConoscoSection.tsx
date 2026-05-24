@@ -13,7 +13,7 @@ export default function FaleConoscoSection() {
     const texto = encodeURIComponent(
       `Olá! Meu nome é ${nome}.\nE-mail: ${email}\n\n${mensagemTexto}`
     )
-    window.open(`https://wa.me/5500000000000?text=${texto}`, '_blank')
+    window.open(`https://wa.me/5551911198639?text=${texto}`, '_blank')
     setEnviado(true)
     setNome('')
     setEmail('')
@@ -38,29 +38,35 @@ export default function FaleConoscoSection() {
                 <span className="text-2xl">📍</span>
                 <div>
                   <p className="font-semibold">Endereço</p>
-                  <p className="text-orange-100 text-sm">Rua Principal, 123 - Centro</p>
+                  <p className="text-orange-100 text-sm">Taquara, RS</p>
                 </div>
               </div>
               <div className="flex items-start gap-3">
                 <span className="text-2xl">📞</span>
                 <div>
-                  <p className="font-semibold">Telefone</p>
-                  <p className="text-orange-100 text-sm">(00) 0000-0000</p>
+                  <p className="font-semibold">Fale Conosco</p>
+                  <p className="text-orange-100 text-sm">(51) 9119-8639</p>
+                </div>
+              </div>
+              <div className="flex items-start gap-3">
+                <span className="text-2xl">📱</span>
+                <div>
+                  <p className="font-semibold">Televendas</p>
+                  <p className="text-orange-100 text-sm">(51) 9707-8458</p>
                 </div>
               </div>
               <div className="flex items-start gap-3">
                 <span className="text-2xl">⏰</span>
                 <div>
                   <p className="font-semibold">Horário</p>
-                  <p className="text-orange-100 text-sm">Seg a Sáb: 7h às 21h</p>
-                  <p className="text-orange-100 text-sm">Dom: 7h às 13h</p>
+                  <p className="text-orange-100 text-sm">Seg a Dom: 8h às 20h</p>
                 </div>
               </div>
               <div className="flex items-start gap-3">
                 <span className="text-2xl">📧</span>
                 <div>
                   <p className="font-semibold">E-mail</p>
-                  <p className="text-orange-100 text-sm">contato@certoatacado.com.br</p>
+                  <p className="text-orange-100 text-sm">contato@certoatacado.com</p>
                 </div>
               </div>
             </div>
