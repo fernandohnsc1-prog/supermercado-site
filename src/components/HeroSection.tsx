@@ -18,46 +18,20 @@ export default function HeroSection() {
             <CertoLogo size="xl" light />
           </div>
 
-          {/* Mascote SVG animada puxando o logo */}
+          {/* Mascote real puxando o logo */}
           <div className="relative animate-mascotEntrance hidden md:block">
             {/* Corda/conexão visual */}
             <div className="absolute left-0 top-1/2 -translate-x-full w-16 h-1 bg-gradient-to-l from-white/60 to-transparent animate-ropeWiggle origin-right" />
 
-            {/* Mascote - personagem estilizado */}
-            <div className="relative w-48 h-48 lg:w-56 lg:h-56 animate-float">
-              <svg viewBox="0 0 200 200" className="w-full h-full drop-shadow-2xl">
-                {/* Corpo */}
-                <circle cx="100" cy="90" r="50" fill="#FFD4A3" stroke="#F97316" strokeWidth="3"/>
-                {/* Cabelo */}
-                <ellipse cx="100" cy="55" rx="52" ry="30" fill="#5C3317"/>
-                <ellipse cx="65" cy="70" rx="8" ry="25" fill="#5C3317"/>
-                <ellipse cx="135" cy="70" rx="8" ry="25" fill="#5C3317"/>
-                {/* Olhos */}
-                <circle cx="82" cy="85" r="8" fill="white"/>
-                <circle cx="118" cy="85" r="8" fill="white"/>
-                <circle cx="84" cy="86" r="4" fill="#2D5016"/>
-                <circle cx="120" cy="86" r="4" fill="#2D5016"/>
-                <circle cx="85" cy="84" r="1.5" fill="white"/>
-                <circle cx="121" cy="84" r="1.5" fill="white"/>
-                {/* Boca sorrindo */}
-                <path d="M88 102 Q100 115 112 102" fill="none" stroke="#D4522A" strokeWidth="2.5" strokeLinecap="round"/>
-                {/* Bochechas */}
-                <circle cx="72" cy="98" r="6" fill="#FFB5B5" opacity="0.5"/>
-                <circle cx="128" cy="98" r="6" fill="#FFB5B5" opacity="0.5"/>
-                {/* Avental/uniforme Certo */}
-                <path d="M60 130 Q100 125 140 130 L145 180 Q100 185 55 180 Z" fill="#F97316" stroke="#EA580C" strokeWidth="2"/>
-                {/* Checkmark no avental */}
-                <path d="M88 155 L97 164 L115 146" fill="none" stroke="white" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round"/>
-                {/* Braço esquerdo (puxando) */}
-                <path d="M55 140 Q30 130 15 120" fill="none" stroke="#FFD4A3" strokeWidth="12" strokeLinecap="round"/>
-                <circle cx="15" cy="118" r="8" fill="#FFD4A3" stroke="#F0C090" strokeWidth="1.5"/>
-                {/* Braço direito */}
-                <path d="M145 140 Q160 150 165 160" fill="none" stroke="#FFD4A3" strokeWidth="12" strokeLinecap="round"/>
-                <circle cx="167" cy="162" r="8" fill="#FFD4A3" stroke="#F0C090" strokeWidth="1.5"/>
-              </svg>
+            <div className="relative w-56 h-56 lg:w-72 lg:h-72 animate-float">
+              <img
+                src="/mascote-certo.png"
+                alt="Mascote Certo Atacado"
+                className="w-full h-full object-contain drop-shadow-2xl"
+              />
 
               {/* Balão de fala */}
-              <div className="absolute -top-4 -right-4 bg-white text-orange-600 font-bold text-xs px-3 py-1.5 rounded-full shadow-lg animate-bounce [animation-duration:2s]">
+              <div className="absolute -top-2 -right-2 bg-white text-orange-600 font-bold text-sm px-4 py-2 rounded-full shadow-lg animate-bounce [animation-duration:2s]">
                 Vem! 🛒
               </div>
             </div>
