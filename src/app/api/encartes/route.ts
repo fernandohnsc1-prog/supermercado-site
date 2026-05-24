@@ -31,7 +31,7 @@ export async function POST(request: NextRequest) {
     if (error) return NextResponse.json({ erro: error.message }, { status: 500 })
 
     if (imagens && imagens.length > 0) {
-      const imagensParaInserir = imagens.map((img: any, index: number) => ({
+      const imagensParaInserir = imagens.map((img: { url: string; cloudinary_id: string }, index: number) => ({
         encarte_id: encarte.id,
         imagem_url: img.url,
         cloudinary_id: img.cloudinary_id,

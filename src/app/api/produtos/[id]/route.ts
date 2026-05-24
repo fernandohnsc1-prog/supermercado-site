@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { supabaseAdmin } from '@/lib/supabase'
-import cloudinary from '@/lib/cloudinary'
 
 export async function PATCH(
   request: NextRequest,
@@ -10,7 +9,7 @@ export async function PATCH(
   const body = await request.json()
 
   const { data, error } = await supabaseAdmin
-    .from('encartes')
+    .from('produtos')
     .update(body)
     .eq('id', id)
     .select()
@@ -26,19 +25,8 @@ export async function DELETE(
 ) {
   const { id } = await params
 
-  const { data: imagens } = await supabaseAdmin
-    .from('encarte_imagens')
-    .select('cloudinary_id')
-    .eq('encarte_id', id)
-
-  if (imagens && imagens.length > 0) {
-    await Promise.all(
-      imagens.map((img) => cloudinary.uploader.destroy(img.cloudinary_id))
-    )
-  }
-
   const { error } = await supabaseAdmin
-    .from('encartes')
+    .from('produtos')
     .delete()
     .eq('id', id)
 

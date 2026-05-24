@@ -38,40 +38,43 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="min-h-screen bg-orange-50  flex items-center justify-center px-4">
+    <div className="min-h-screen bg-gradient-to-br from-orange-600 via-orange-500 to-orange-700 flex items-center justify-center px-4">
       <div className="w-full max-w-md">
 
         {/* Logo / Título */}
         <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center w-16 h-16 bg-orange-600 rounded-2xl mb-4">
-            <span className="text-3xl">🛒</span>
+          <div className="inline-flex items-center justify-center w-20 h-20 bg-white rounded-2xl mb-4 shadow-lg">
+            <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+              <circle cx="24" cy="24" r="22" fill="#F97316"/>
+              <path d="M14 24L21 31L34 18" stroke="white" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
           </div>
-          <h1 className="text-2xl font-bold text-white">Painel Administrativo</h1>
-          <p className="text-gray-400 text-sm mt-1">Acesso restrito a administradores</p>
+          <h1 className="text-3xl font-extrabold text-white drop-shadow-lg">Painel Administrativo</h1>
+          <p className="text-orange-100 text-lg font-semibold mt-1">Certo Atacado e Varejo</p>
         </div>
 
         {/* Card do formulário */}
-        <div className="bg-gray-900 border border-gray-800 rounded-2xl p-8">
+        <div className="bg-white rounded-2xl p-8 shadow-2xl">
           <form onSubmit={handleLogin} className="space-y-5">
 
             {/* Campo email */}
             <div>
-              <label className="block text-sm font-medium text-gray-300 mb-1.5">
+              <label className="block text-sm font-medium text-gray-700 mb-1.5">
                 E-mail
               </label>
               <input
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                placeholder="admin@seusupermercado.com.br"
+                placeholder="admin@certoatacado.com.br"
                 required
-                className="w-full bg-gray-800 border border-gray-700 text-white rounded-xl px-4 py-3 text-sm placeholder-gray-500 focus:outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500 transition"
+                className="w-full bg-gray-50 border border-gray-300 text-gray-900 rounded-xl px-4 py-3 text-sm placeholder-gray-400 focus:outline-none focus:border-orange-500 focus:ring-2 focus:ring-orange-200 transition"
               />
             </div>
 
             {/* Campo senha */}
             <div>
-              <label className="block text-sm font-medium text-gray-300 mb-1.5">
+              <label className="block text-sm font-medium text-gray-700 mb-1.5">
                 Senha
               </label>
               <input
@@ -80,14 +83,14 @@ export default function LoginPage() {
                 onChange={(e) => setSenha(e.target.value)}
                 placeholder="••••••••"
                 required
-                className="w-full bg-gray-800 border border-gray-700 text-white rounded-xl px-4 py-3 text-sm placeholder-gray-500 focus:outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500 transition"
+                className="w-full bg-gray-50 border border-gray-300 text-gray-900 rounded-xl px-4 py-3 text-sm placeholder-gray-400 focus:outline-none focus:border-orange-500 focus:ring-2 focus:ring-orange-200 transition"
               />
             </div>
 
             {/* Mensagem de erro */}
             {erro && (
-              <div className="bg-orange-950 border border-orange-800 text-orange-400 text-sm rounded-xl px-4 py-3">
-                ⚠️ {erro}
+              <div className="bg-red-50 border border-red-200 text-red-600 text-sm rounded-xl px-4 py-3">
+                {erro}
               </div>
             )}
 
@@ -95,7 +98,7 @@ export default function LoginPage() {
             <button
               type="submit"
               disabled={carregando}
-              className="w-full bg-orange-600 hover:bg-orange-300 disabled:bg-orange-900 disabled:cursor-not-allowed text-white font-semibold rounded-xl py-3 text-sm transition"
+              className="w-full bg-orange-600 hover:bg-orange-700 disabled:bg-orange-300 disabled:cursor-not-allowed text-white font-semibold rounded-xl py-3 text-sm transition shadow-lg"
             >
               {carregando ? 'Entrando...' : 'Entrar no painel'}
             </button>
@@ -103,8 +106,8 @@ export default function LoginPage() {
           </form>
         </div>
 
-        <p className="text-center text-gray-600 text-xs mt-6">
-          🔒 Conexão segura — acesso monitorado
+        <p className="text-center text-orange-100 text-xs mt-6">
+          Conexão segura — acesso restrito a administradores
         </p>
       </div>
     </div>
