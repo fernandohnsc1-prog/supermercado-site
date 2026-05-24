@@ -56,7 +56,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 bg-white rounded-xl flex items-center justify-center">
               <svg width="24" height="24" viewBox="0 0 48 48" fill="none">
-                <circle cx="24" cy="24" r="22" fill="#F97316"/>
+                <circle cx="24" cy="24" r="22" fill="#EB6E10"/>
                 <path d="M14 24L21 31L34 18" stroke="white" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round"/>
               </svg>
             </div>

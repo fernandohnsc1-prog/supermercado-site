@@ -16,7 +16,7 @@ export default function TemasPage() {
   const [temas, setTemas] = useState<Tema[]>([])
   const [carregando, setCarregando] = useState(true)
   const [nome, setNome] = useState('')
-  const [corPrimaria, setCorPrimaria] = useState('#F97316')
+  const [corPrimaria, setCorPrimaria] = useState('#EB6E10')
   const [corSecundaria, setCorSecundaria] = useState('#EA580C')
   const [corFundo, setCorFundo] = useState('#FFFFFF')
   const [corTexto, setCorTexto] = useState('#1F2937')

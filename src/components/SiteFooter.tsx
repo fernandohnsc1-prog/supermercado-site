@@ -77,7 +77,7 @@ export default function SiteFooter() {
               <div className="flex items-center gap-3 mb-4">
                 <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center flex-shrink-0">
                   <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
-                    <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z" fill="#F97316" strokeWidth="0.5"/>
+                    <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z" fill="#EB6E10" strokeWidth="0.5"/>
                   </svg>
                 </div>
                 <div>

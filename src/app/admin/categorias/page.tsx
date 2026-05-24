@@ -16,7 +16,7 @@ export default function CategoriasPage() {
   const [carregando, setCarregando] = useState(true)
   const [nome, setNome] = useState('')
   const [icone, setIcone] = useState('')
-  const [cor, setCor] = useState('#F97316')
+  const [cor, setCor] = useState('#EB6E10')
   const [salvando, setSalvando] = useState(false)
 
   async function carregar() {
@@ -45,7 +45,7 @@ export default function CategoriasPage() {
     })
     setNome('')
     setIcone('')
-    setCor('#F97316')
+    setCor('#EB6E10')
     setSalvando(false)
     carregar()
   }

@@ -3,9 +3,9 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
-  --certo-orange: #F97316;
-  --certo-orange-dark: #EA580C;
-  --certo-orange-light: #FB923C;
+  --certo-orange: #EB6E10;
+  --certo-orange-dark: #D45E0A;
+  --certo-orange-light: #F5A03C;
 }
 
 @theme inline {
@@ -16,6 +16,17 @@
   --color-certo-light: var(--certo-orange-light);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  --color-orange-50: #FFF8ED;
+  --color-orange-100: #FFF0D4;
+  --color-orange-200: #FFE0A8;
+  --color-orange-300: #FFC96E;
+  --color-orange-400: #FFA830;
+  --color-orange-500: #F28C14;
+  --color-orange-600: #EB6E10;
+  --color-orange-700: #CC5C0A;
+  --color-orange-800: #A94B08;
+  --color-orange-900: #8A3D06;
+  --color-orange-950: #4D2003;
 }
 
 @media (prefers-color-scheme: dark) {
