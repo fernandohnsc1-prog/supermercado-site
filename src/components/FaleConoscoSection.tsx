@@ -13,7 +13,7 @@ export default function FaleConoscoSection() {
     const texto = encodeURIComponent(
       `Olá! Meu nome é ${nome}.\nE-mail: ${email}\n\n${mensagemTexto}`
     )
-    window.open(`https://wa.me/5551911198639?text=${texto}`, '_blank')
+    window.open(`https://wa.me/555191198639?text=${texto}`, '_blank')
     setEnviado(true)
     setNome('')
     setEmail('')

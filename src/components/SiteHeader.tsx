@@ -33,7 +33,7 @@ export default function SiteHeader() {
               </Link>
             ))}
             <a
-              href="https://wa.me/5551970748458"
+              href="https://wa.me/555197078458"
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-2 bg-green-500 hover:bg-green-600 text-white font-bold text-sm px-5 py-2.5 rounded-full transition-all duration-200 hover:scale-105 shadow-md"
@@ -64,7 +64,7 @@ export default function SiteHeader() {
               </Link>
             ))}
             <a
-              href="https://wa.me/5551970748458"
+              href="https://wa.me/555197078458"
               target="_blank"
               rel="noopener noreferrer"
               onClick={() => setMenuAberto(false)}

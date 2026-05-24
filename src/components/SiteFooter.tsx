@@ -120,15 +120,15 @@ export default function SiteFooter() {
                   <svg className="w-5 h-5 flex-shrink-0 text-orange-200" fill="currentColor" viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
                   contato@certoatacado.com
                 </a>
-                <a href="tel:+5551911198639" className="flex items-center gap-3 hover:text-orange-200 transition text-sm">
+                <a href="tel:+555191198639" className="flex items-center gap-3 hover:text-orange-200 transition text-sm">
                   <svg className="w-5 h-5 flex-shrink-0 text-orange-200" fill="currentColor" viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
                   (51) 9119-8639 — Fale Conosco
                 </a>
-                <a href="https://wa.me/5551970748458" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 hover:text-orange-200 transition text-sm">
+                <a href="https://wa.me/555197078458" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 hover:text-orange-200 transition text-sm">
                   <svg className="w-5 h-5 flex-shrink-0 text-green-300" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 2C6.477 2 2 6.477 2 12c0 1.89.525 3.66 1.438 5.168L2 22l4.832-1.438A9.955 9.955 0 0012 22c5.523 0 10-4.477 10-10S17.523 2 12 2z"/></svg>
                   (51) 9707-8458 — Televendas
                 </a>
-                <a href="https://wa.me/5551947538382" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 hover:text-orange-200 transition text-sm">
+                <a href="https://wa.me/555194758382" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 hover:text-orange-200 transition text-sm">
                   <svg className="w-5 h-5 flex-shrink-0 text-orange-200" fill="currentColor" viewBox="0 0 24 24"><path d="M20 6H16V4C16 2.89 15.11 2 14 2H10C8.89 2 8 2.89 8 4V6H4C2.89 6 2 6.89 2 8V19C2 20.11 2.89 21 4 21H20C21.11 21 20 20.11 20 19V8C22 6.89 21.11 6 20 6ZM10 4H14V6H10V4Z"/></svg>
                   (51) 9475-8382 — Trabalhe Conosco
                 </a>
@@ -190,7 +190,7 @@ export default function SiteFooter() {
       <div className="bg-orange-100 border-t-4 border-orange-400">
         <div className="max-w-7xl mx-auto px-4 py-4 text-center">
           <a
-            href="#pesquisa"
+            href="https://docs.google.com/forms/d/e/1FAIpQLSdBeayGD-8Wn8z8MWIz0jn2OZwkli5vCjHD1h2TxmEOXC_Q_w/viewform?pli=1" target="_blank" rel="noopener noreferrer"
             className="inline-flex items-center gap-2 text-orange-700 font-bold text-lg hover:text-orange-800 transition"
           >
             <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6zm-1 7V3.5L18.5 9H13zM6 20V4h6v6h6v10H6z"/></svg>
