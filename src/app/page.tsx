@@ -4,9 +4,6 @@ import HeroSection from '@/components/HeroSection'
 import EncartesSection from '@/components/EncartesSection'
 import SorteiosSection from '@/components/SorteiosSection'
 import ProdutosSection from '@/components/ProdutosSection'
-import NossaHistoriaSection from '@/components/NossaHistoriaSection'
-import FaleConoscoSection from '@/components/FaleConoscoSection'
-import TrabalheConoscoSection from '@/components/TrabalheConoscoSection'
 
 export default function Home() {
   return (
@@ -17,9 +14,6 @@ export default function Home() {
         <EncartesSection />
         <SorteiosSection />
         <ProdutosSection />
-        <NossaHistoriaSection />
-        <FaleConoscoSection />
-        <TrabalheConoscoSection />
       </main>
       <SiteFooter />
     </div>
