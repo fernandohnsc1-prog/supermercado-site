@@ -34,7 +34,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
         {/* Logo */}
         <div className="p-6 border-b border-gray-800">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-red-600 rounded-xl flex items-center justify-center text-xl">
+            <div className="w-10 h-10 bg-orange-600 rounded-xl flex items-center justify-center text-xl">
               🛒
             </div>
             <div>
@@ -54,7 +54,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                 href={item.href}
                 className={`flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all ${
                   ativo
-                    ? 'bg-red-600 text-white'
+                    ? 'bg-orange-600 text-white'
                     : 'text-gray-400 hover:bg-gray-800 hover:text-white'
                 }`}
               >
@@ -70,7 +70,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
           <button
             onClick={handleLogout}
             disabled={saindo}
-            className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium text-gray-400 hover:bg-gray-800 hover:text-red-400 transition-all"
+            className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium text-gray-400 hover:bg-gray-800 hover:text-orange-400 transition-all"
           >
             <span>🚪</span>
             {saindo ? 'Saindo...' : 'Sair do painel'}

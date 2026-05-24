@@ -38,12 +38,12 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-950 flex items-center justify-center px-4">
+    <div className="min-h-screen bg-orange-50  flex items-center justify-center px-4">
       <div className="w-full max-w-md">
 
         {/* Logo / Título */}
         <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center w-16 h-16 bg-red-600 rounded-2xl mb-4">
+          <div className="inline-flex items-center justify-center w-16 h-16 bg-orange-600 rounded-2xl mb-4">
             <span className="text-3xl">🛒</span>
           </div>
           <h1 className="text-2xl font-bold text-white">Painel Administrativo</h1>
@@ -65,7 +65,7 @@ export default function LoginPage() {
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="admin@seusupermercado.com.br"
                 required
-                className="w-full bg-gray-800 border border-gray-700 text-white rounded-xl px-4 py-3 text-sm placeholder-gray-500 focus:outline-none focus:border-red-500 focus:ring-1 focus:ring-red-500 transition"
+                className="w-full bg-gray-800 border border-gray-700 text-white rounded-xl px-4 py-3 text-sm placeholder-gray-500 focus:outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500 transition"
               />
             </div>
 
@@ -80,13 +80,13 @@ export default function LoginPage() {
                 onChange={(e) => setSenha(e.target.value)}
                 placeholder="••••••••"
                 required
-                className="w-full bg-gray-800 border border-gray-700 text-white rounded-xl px-4 py-3 text-sm placeholder-gray-500 focus:outline-none focus:border-red-500 focus:ring-1 focus:ring-red-500 transition"
+                className="w-full bg-gray-800 border border-gray-700 text-white rounded-xl px-4 py-3 text-sm placeholder-gray-500 focus:outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500 transition"
               />
             </div>
 
             {/* Mensagem de erro */}
             {erro && (
-              <div className="bg-red-950 border border-red-800 text-red-400 text-sm rounded-xl px-4 py-3">
+              <div className="bg-orange-950 border border-orange-800 text-orange-400 text-sm rounded-xl px-4 py-3">
                 ⚠️ {erro}
               </div>
             )}
@@ -95,7 +95,7 @@ export default function LoginPage() {
             <button
               type="submit"
               disabled={carregando}
-              className="w-full bg-red-600 hover:bg-red-500 disabled:bg-red-900 disabled:cursor-not-allowed text-white font-semibold rounded-xl py-3 text-sm transition"
+              className="w-full bg-orange-600 hover:bg-orange-300 disabled:bg-orange-900 disabled:cursor-not-allowed text-white font-semibold rounded-xl py-3 text-sm transition"
             >
               {carregando ? 'Entrando...' : 'Entrar no painel'}
             </button>
