@@ -24,7 +24,7 @@ export async function POST(request: NextRequest) {
 
     const { data: encarte, error } = await supabaseAdmin
       .from('encartes')
-      .insert({ titulo, descricao, categoria_id, data_inicio, data_fim })
+      .insert({ titulo, descricao, categoria_id, data_inicio, data_fim, ativo: true, ordem: 0 })
       .select()
       .single()
 

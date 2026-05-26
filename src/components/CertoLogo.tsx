@@ -16,8 +16,8 @@ export default function CertoLogo({ size = 'lg', light = false }: { size?: 'sm' 
         <span className={`${s.text} font-black ${textColor} tracking-tighter drop-shadow-sm`}>Cert</span>
         <span className="inline-flex items-center justify-center relative" style={{ width: s.o, height: s.o }}>
           <svg width={s.o} height={s.o} viewBox="0 0 48 48" fill="none">
-            <circle cx="24" cy="24" r="23" fill="#F97316"/>
-            <path d="M14 24L21 31L34 17" stroke="white" strokeWidth={s.check} strokeLinecap="round" strokeLinejoin="round"/>
+            <circle cx="24" cy="24" r="23" fill="white" stroke={light ? 'rgba(255,255,255,0.3)' : '#e5e7eb'} strokeWidth="1"/>
+            <path d="M14 24L21 31L34 17" stroke="#F97316" strokeWidth={s.check} strokeLinecap="round" strokeLinejoin="round"/>
           </svg>
         </span>
       </div>

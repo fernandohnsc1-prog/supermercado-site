@@ -117,6 +117,16 @@ html {
   animation: ropeWiggle 1.5s ease-in-out infinite 1.3s;
 }
 
+@keyframes pingOnce {
+  0% { transform: scale(1); opacity: 1; }
+  75% { transform: scale(2); opacity: 0; }
+  100% { transform: scale(2); opacity: 0; }
+}
+
+.animate-ping-once {
+  animation: pingOnce 0.8s ease-out forwards;
+}
+
 .embla {
   overflow: hidden;
 }

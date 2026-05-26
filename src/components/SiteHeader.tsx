@@ -16,6 +16,19 @@ export default function SiteHeader() {
 
   return (
     <header className="bg-white shadow-md sticky top-0 z-50">
+      {/* Barra superior com Clube e Rede Müller */}
+      <div className="bg-orange-600 text-white">
+        <div className="max-w-7xl mx-auto px-4 flex items-center justify-center gap-6 py-1">
+          <span className="text-[10px] sm:text-xs font-semibold tracking-wide uppercase">
+            Clube Mais Vantagem
+          </span>
+          <span className="w-px h-3 bg-white/40" />
+          <span className="text-[10px] sm:text-xs font-semibold tracking-wide uppercase">
+            Rede Müller Pra Viver Bem
+          </span>
+        </div>
+      </div>
+
       <div className="max-w-7xl mx-auto px-4">
         <div className="flex items-center justify-between py-3">
           <Link href="/" className="flex-shrink-0">
