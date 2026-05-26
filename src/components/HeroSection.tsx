@@ -10,15 +10,15 @@ export default function HeroSection() {
         <div className="absolute bottom-10 right-10 w-60 h-60 bg-yellow-300 rounded-full blur-3xl animate-pulse [animation-delay:1s]" />
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 py-12 md:py-20 relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-3 items-center gap-8 lg:gap-4">
+      <div className="max-w-7xl mx-auto px-4 py-6 md:py-10 relative z-10">
+        <div className="grid grid-cols-1 lg:grid-cols-3 items-center gap-4 lg:gap-4">
 
           {/* Esquerda — Clube Mais Vantagens */}
           <div className="text-center lg:text-left animate-slideInLeft opacity-0 [animation-delay:0.3s]">
             <div className="inline-block mb-2">
               <span className="text-yellow-300 text-4xl font-bold">+</span>
             </div>
-            <h2 className="text-xl md:text-2xl lg:text-3xl font-black uppercase leading-tight">
+            <h2 className="text-lg md:text-xl lg:text-2xl font-black uppercase leading-tight">
               Clube <span className="text-yellow-300">Mais</span><br />Vantagens
             </h2>
             <div className="mt-2 flex items-center justify-center lg:justify-start gap-1">
@@ -47,8 +47,8 @@ export default function HeroSection() {
             <div className="animate-pullFromLeft">
               <CertoLogo size="xl" light />
             </div>
-            <div className="relative mt-6 flex justify-center animate-mascotEntrance">
-              <div className="relative w-56 h-56 lg:w-64 lg:h-64 animate-float">
+            <div className="relative mt-3 flex justify-center animate-mascotEntrance">
+              <div className="relative w-40 h-40 lg:w-48 lg:h-48 animate-float">
                 <img
                   src="/mascote-certo.png"
                   alt="Mascote Certo Atacado"
@@ -64,16 +64,16 @@ export default function HeroSection() {
           {/* Direita — Rede Müller */}
           <div className="text-center lg:text-right animate-slideInRight opacity-0 [animation-delay:0.3s]">
             <p className="text-sm md:text-base font-medium tracking-widest uppercase opacity-80">Rede</p>
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-black uppercase tracking-tight">Müller</h2>
+            <h2 className="text-2xl md:text-3xl lg:text-4xl font-black uppercase tracking-tight">Müller</h2>
             <span className="inline-block w-2 h-2 bg-yellow-400 rotate-45 mt-1" />
             <p className="text-sm md:text-base italic opacity-80 mt-1">pra viver bem</p>
           </div>
         </div>
 
-        <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4 animate-fadeIn [animation-delay:1.1s] opacity-0">
+        <div className="mt-4 flex flex-col sm:flex-row items-center justify-center gap-3 animate-fadeIn [animation-delay:1.1s] opacity-0">
           <a
             href="#encartes"
-            className="bg-white text-orange-600 font-bold px-10 py-4 rounded-2xl text-lg hover:bg-orange-50 hover:scale-105 transition-all duration-300 shadow-xl"
+            className="bg-white text-orange-600 font-bold px-8 py-3 rounded-2xl text-base hover:bg-orange-50 hover:scale-105 transition-all duration-300 shadow-xl"
           >
             Ver encartes
           </a>
@@ -81,14 +81,14 @@ export default function HeroSection() {
             href="https://cartao.redemuller.com.br/cartao"
             target="_blank"
             rel="noopener noreferrer"
-            className="bg-white text-orange-600 font-bold px-10 py-4 rounded-2xl text-lg hover:bg-orange-50 hover:scale-105 transition-all duration-300 shadow-xl flex items-center gap-2"
+            className="bg-white text-orange-600 font-bold px-8 py-3 rounded-2xl text-base hover:bg-orange-50 hover:scale-105 transition-all duration-300 shadow-xl flex items-center gap-2"
           >
             <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 14H4V6h16v12zm-8-1h4v-2h-4v2zm-6-4h10v-2H6v2zm0-4h10V7H6v2z"/></svg>
             Pedir Cartão
           </a>
           <a
             href="#sorteios"
-            className="bg-orange-800/50 text-white font-bold px-10 py-4 rounded-2xl text-lg hover:bg-orange-800 hover:scale-105 transition-all duration-300 border border-orange-400/30"
+            className="bg-orange-800/50 text-white font-bold px-8 py-3 rounded-2xl text-base hover:bg-orange-800 hover:scale-105 transition-all duration-300 border border-orange-400/30"
           >
             Participar de sorteios
           </a>
