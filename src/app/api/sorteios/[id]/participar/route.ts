@@ -48,15 +48,15 @@ export async function POST(
 
   const { data: sorteio } = await supabaseAdmin
     .from('sorteios')
-    .select('ativo, data_fim, sorteado')
+    .select('ativo, data_sorteio')
     .eq('id', id)
     .single()
 
-  if (!sorteio || !sorteio.ativo || sorteio.sorteado) {
+  if (!sorteio || !sorteio.ativo) {
     return NextResponse.json({ erro: 'Sorteio não disponível' }, { status: 400 })
   }
 
-  if (new Date(sorteio.data_fim) < new Date()) {
+  if (new Date(sorteio.data_sorteio) < new Date(new Date().toISOString().split('T')[0])) {
     return NextResponse.json({ erro: 'Sorteio encerrado' }, { status: 400 })
   }
 

@@ -41,7 +41,7 @@ export default function EncartesSection() {
     return () => { active = false }
   }, [])
 
-  if (encartes.length === 0) return null
+  if (encartes.length === 0) return <section id="encartes" />
 
   return (
     <section id="encartes" className="py-16 bg-white">

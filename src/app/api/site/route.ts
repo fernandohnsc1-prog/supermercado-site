@@ -15,8 +15,7 @@ export async function GET() {
       .from('sorteios')
       .select('*')
       .eq('ativo', true)
-      .eq('sorteado', false)
-      .gte('data_fim', now)
+      .gte('data_sorteio', now.split('T')[0])
       .order('created_at', { ascending: false }),
     supabaseAdmin
       .from('produtos')

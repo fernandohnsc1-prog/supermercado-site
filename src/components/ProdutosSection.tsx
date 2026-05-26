@@ -36,7 +36,7 @@ export default function ProdutosSection() {
     return () => { active = false }
   }, [])
 
-  if (produtos.length === 0) return null
+  if (produtos.length === 0) return <section id="produtos" />
 
   return (
     <section id="produtos" className="py-16 bg-white">

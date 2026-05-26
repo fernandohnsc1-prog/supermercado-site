@@ -10,9 +10,8 @@ interface Sorteio {
   titulo: string
   descricao: string
   imagem_url: string | null
-  link_criterio: string | null
-  descricao_link: string | null
-  data_fim: string
+  premio: string | null
+  data_sorteio: string
 }
 
 export default function SorteiosSection() {
@@ -73,7 +72,7 @@ export default function SorteiosSection() {
     setEnviando(false)
   }
 
-  if (sorteios.length === 0) return null
+  if (sorteios.length === 0) return <section id="sorteios" />
 
   return (
     <section id="sorteios" className="py-16 bg-orange-50">
@@ -108,20 +107,12 @@ export default function SorteiosSection() {
                       {sorteio.descricao && (
                         <p className="text-gray-500 text-sm mb-3">{sorteio.descricao}</p>
                       )}
-                      <p className="text-orange-600 text-xs font-medium mb-4">
-                        Participe até {new Date(sorteio.data_fim).toLocaleDateString('pt-BR')}
-                      </p>
-
-                      {sorteio.link_criterio && (
-                        <a
-                          href={sorteio.link_criterio}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="block bg-gradient-to-r from-purple-500 to-pink-500 text-white text-center text-sm font-semibold px-4 py-3 rounded-xl mb-4 hover:opacity-90 hover:scale-[1.02] transition-all duration-200"
-                        >
-                          {sorteio.descricao_link || 'Cumprir critério para participar'}
-                        </a>
+                      {sorteio.premio && (
+                        <p className="text-green-600 text-xs font-semibold mb-1">Prêmio: {sorteio.premio}</p>
                       )}
+                      <p className="text-orange-600 text-xs font-medium mb-4">
+                        Sorteio em {new Date(sorteio.data_sorteio + 'T00:00:00').toLocaleDateString('pt-BR')}
+                      </p>
 
                       {participando === sorteio.id ? (
                         <div className="space-y-3 animate-fadeIn">
