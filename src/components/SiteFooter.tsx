@@ -2,28 +2,28 @@ import Link from 'next/link'
 
 const lojas = [
   {
-    nome: 'Taquara – Medianeira',
-    endereco: 'R. Picada Gravatá, 1350',
-    bairro: 'Medianeira, Taquara – RS',
-    mapsLink: 'https://maps.google.com/?q=R.+Picada+Gravat%C3%A1,+1350+Medianeira+Taquara+RS',
-  },
-  {
-    nome: 'Taquara – Santa Maria',
+    nome: 'Certo Atacado & Varejo - RS 115',
     endereco: 'Av. Oscar Martins Rangel, 3621',
     bairro: 'Santa Maria, Taquara – RS',
     mapsLink: 'https://maps.google.com/?q=Av.+Oscar+Martins+Rangel,+3621+Santa+Maria+Taquara+RS',
   },
   {
-    nome: 'Parobé – Centro',
-    endereco: 'R. Vera Cruz, 285, Sala 2',
-    bairro: 'Centro, Parobé – RS',
-    mapsLink: 'https://maps.google.com/?q=R.+Vera+Cruz,+285+Centro+Parob%C3%A9+RS',
+    nome: 'Certo Atacado & Varejo - Picada Gravatá',
+    endereco: 'R. Picada Gravatá, 1350',
+    bairro: 'Medianeira, Taquara – RS',
+    mapsLink: 'https://maps.google.com/?q=R.+Picada+Gravat%C3%A1,+1350+Medianeira+Taquara+RS',
   },
   {
-    nome: 'Taquara – Centro',
+    nome: 'Certo Atacado & Varejo - Av. Sebastião Amoretti',
     endereco: 'Av. Júlio de Castilhos, 2279',
     bairro: 'Centro, Taquara – RS',
     mapsLink: 'https://maps.google.com/?q=Av.+J%C3%BAlio+de+Castilhos,+2279+Centro+Taquara+RS',
+  },
+  {
+    nome: 'Certo Atacado & Varejo - Centro de Parobé',
+    endereco: 'R. Vera Cruz, 285, Sala 2',
+    bairro: 'Centro, Parobé – RS',
+    mapsLink: 'https://maps.google.com/?q=R.+Vera+Cruz,+285+Centro+Parob%C3%A9+RS',
   },
 ]
 

@@ -11,9 +11,6 @@ export default function Home() {
       <SiteHeader />
       <main className="flex-1">
         <HeroSection />
-        <EncartesSection />
-        <SorteiosSection />
-        <ProdutosSection />
         {/* Banner Verificados */}
         <section className="bg-orange-50 py-10">
           <div className="max-w-4xl mx-auto px-4">
@@ -24,6 +21,9 @@ export default function Home() {
             />
           </div>
         </section>
+        <EncartesSection />
+        <SorteiosSection />
+        <ProdutosSection />
       </main>
       <SiteFooter />
     </div>
