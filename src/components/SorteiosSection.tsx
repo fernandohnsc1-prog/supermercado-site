@@ -20,6 +20,7 @@ export default function SorteiosSection() {
   const [participando, setParticipando] = useState<string | null>(null)
   const [nome, setNome] = useState('')
   const [telefone, setTelefone] = useState('')
+  const [comprovante, setComprovante] = useState<File | null>(null)
   const [mensagem, setMensagem] = useState('')
   const [enviando, setEnviando] = useState(false)
   const { ref: revealRef, visible } = useScrollReveal()
@@ -48,10 +49,16 @@ export default function SorteiosSection() {
     setEnviando(true)
     setMensagem('')
 
+    const formData = new FormData()
+    formData.append('nome', nome)
+    formData.append('telefone', telefone)
+    if (comprovante) {
+      formData.append('comprovante', comprovante)
+    }
+
     const res = await fetch(`/api/sorteios/${sorteioId}/participar`, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ nome, telefone }),
+      body: formData,
     })
 
     const data = await res.json()
@@ -59,6 +66,7 @@ export default function SorteiosSection() {
       setMensagem('Inscrição realizada com sucesso! Boa sorte!')
       setNome('')
       setTelefone('')
+      setComprovante(null)
     } else {
       setMensagem(data.erro || 'Erro ao participar')
     }
@@ -131,6 +139,26 @@ export default function SorteiosSection() {
                             placeholder="(00) 00000-0000"
                             className="w-full bg-gray-50 border border-gray-300 text-gray-900 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-orange-500 focus:ring-2 focus:ring-orange-200 transition"
                           />
+                          <div>
+                            <label className="block text-xs text-gray-500 mb-1">Comprovante de compra (opcional)</label>
+                            <div
+                              className="border-2 border-dashed border-gray-300 rounded-xl p-3 text-center cursor-pointer hover:border-orange-300 transition"
+                              onClick={() => document.getElementById(`comprovante-${sorteio.id}`)?.click()}
+                            >
+                              {comprovante ? (
+                                <p className="text-green-600 text-sm font-medium">📷 {comprovante.name}</p>
+                              ) : (
+                                <p className="text-gray-400 text-sm">📷 Clique para enviar foto</p>
+                              )}
+                              <input
+                                id={`comprovante-${sorteio.id}`}
+                                type="file"
+                                accept="image/*"
+                                className="hidden"
+                                onChange={(e) => setComprovante(e.target.files?.[0] || null)}
+                              />
+                            </div>
+                          </div>
                           {mensagem && (
                             <p className={`text-sm ${mensagem.includes('sucesso') ? 'text-green-600' : 'text-red-500'}`}>
                               {mensagem}
@@ -144,7 +172,7 @@ export default function SorteiosSection() {
                             {enviando ? 'Enviando...' : 'Confirmar participação'}
                           </button>
                           <button
-                            onClick={() => { setParticipando(null); setMensagem('') }}
+                            onClick={() => { setParticipando(null); setMensagem(''); setComprovante(null) }}
                             className="w-full text-gray-500 text-sm hover:text-gray-700 transition"
                           >
                             Cancelar

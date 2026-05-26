@@ -7,6 +7,7 @@ interface Participante {
   id: string
   nome: string
   telefone: string
+  comprovante_url?: string | null
   created_at: string
 }
 
@@ -33,6 +34,7 @@ export default function SorteioDetalhePage() {
   const [carregando, setCarregando] = useState(true)
   const [sorteando, setSorteando] = useState(false)
   const [ganhador, setGanhador] = useState<Ganhador | null>(null)
+  const [fotoAberta, setFotoAberta] = useState<string | null>(null)
 
   async function carregar() {
     const res = await fetch(`/api/sorteios/${id}`)
@@ -77,7 +79,6 @@ export default function SorteioDetalhePage() {
         <p className="text-gray-500 text-sm mt-1">{sorteio.descricao}</p>
       </div>
 
-      {/* Ganhador */}
       {(ganhador || ganhadorParticipante) && (
         <div className="bg-green-50 border border-green-200 rounded-2xl p-6 mb-6">
           <h2 className="text-green-800 font-bold text-lg mb-2">Ganhador do sorteio!</h2>
@@ -97,7 +98,6 @@ export default function SorteioDetalhePage() {
         </div>
       )}
 
-      {/* Ações */}
       <div className="flex items-center gap-4 mb-6">
         {!sorteio.sorteado && sorteio.participantes.length > 0 && (
           <button
@@ -122,7 +122,6 @@ export default function SorteioDetalhePage() {
         </span>
       </div>
 
-      {/* Lista de participantes */}
       <div className="bg-white border border-orange-100 rounded-2xl p-6">
         <h2 className="text-gray-800 font-semibold mb-4">Participantes</h2>
         {sorteio.participantes.length === 0 ? (
@@ -143,6 +142,14 @@ export default function SorteioDetalhePage() {
                   <p className="text-gray-800 font-medium text-sm">{p.nome}</p>
                   <p className="text-gray-400 text-xs">{p.telefone}</p>
                 </div>
+                {p.comprovante_url && (
+                  <button
+                    onClick={() => setFotoAberta(p.comprovante_url!)}
+                    className="flex items-center gap-1 bg-blue-50 text-blue-600 text-xs font-medium px-3 py-1.5 rounded-lg hover:bg-blue-100 transition"
+                  >
+                    📷 Ver comprovante
+                  </button>
+                )}
                 {p.id === sorteio.ganhador_id && (
                   <span className="text-xs bg-green-600 text-white px-2 py-0.5 rounded-full">Ganhador</span>
                 )}
@@ -151,6 +158,27 @@ export default function SorteioDetalhePage() {
           </div>
         )}
       </div>
+
+      {fotoAberta && (
+        <div
+          className="fixed inset-0 bg-black/80 z-50 flex items-center justify-center p-4"
+          onClick={() => setFotoAberta(null)}
+        >
+          <div className="relative max-w-3xl max-h-[90vh]">
+            <img
+              src={fotoAberta}
+              alt="Comprovante"
+              className="max-w-full max-h-[85vh] rounded-xl shadow-2xl"
+            />
+            <button
+              onClick={() => setFotoAberta(null)}
+              className="absolute -top-3 -right-3 bg-white text-gray-800 w-8 h-8 rounded-full shadow-lg flex items-center justify-center text-sm font-bold hover:bg-gray-100"
+            >
+              ✕
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   )
 }

@@ -89,8 +89,16 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
           })}
         </nav>
 
-        {/* Botão logout */}
-        <div className="p-4 border-t border-orange-100">
+        {/* Botões inferiores */}
+        <div className="p-4 border-t border-orange-100 space-y-1">
+          <Link
+            href="/"
+            target="_blank"
+            className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium text-blue-600 hover:bg-blue-50 transition-all"
+          >
+            <span>🌐</span>
+            Ver Site
+          </Link>
           <button
             onClick={handleLogout}
             disabled={saindo}

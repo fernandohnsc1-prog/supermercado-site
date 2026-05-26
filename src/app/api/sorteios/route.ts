@@ -17,7 +17,7 @@ export async function POST(request: NextRequest) {
 
   const { data, error } = await supabaseAdmin
     .from('sorteios')
-    .insert({ titulo, descricao, imagem_url, cloudinary_id, link_criterio, descricao_link, data_inicio, data_fim })
+    .insert({ titulo, descricao, imagem_url, cloudinary_id, link_criterio, descricao_link, data_inicio, data_fim, ativo: true, sorteado: false })
     .select()
     .single()
 

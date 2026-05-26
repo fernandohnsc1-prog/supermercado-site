@@ -1,12 +1,46 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { supabaseAdmin } from '@/lib/supabase'
+import cloudinary from '@/lib/cloudinary'
 
 export async function POST(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
   const { id } = await params
-  const { nome, telefone } = await request.json()
+
+  const contentType = request.headers.get('content-type') || ''
+
+  let nome = ''
+  let telefone = ''
+  let comprovanteUrl: string | null = null
+  let comprovanteCloudinaryId: string | null = null
+
+  if (contentType.includes('multipart/form-data')) {
+    const formData = await request.formData()
+    nome = formData.get('nome') as string || ''
+    telefone = formData.get('telefone') as string || ''
+    const foto = formData.get('comprovante') as File | null
+
+    if (foto && foto.size > 0) {
+      try {
+        const bytes = await foto.arrayBuffer()
+        const buffer = Buffer.from(bytes)
+        const base64 = `data:${foto.type};base64,${buffer.toString('base64')}`
+        const result = await cloudinary.uploader.upload(base64, {
+          folder: 'certo-atacado/comprovantes',
+          resource_type: 'image',
+        })
+        comprovanteUrl = result.secure_url
+        comprovanteCloudinaryId = result.public_id
+      } catch {
+        return NextResponse.json({ erro: 'Erro ao enviar comprovante' }, { status: 500 })
+      }
+    }
+  } else {
+    const body = await request.json()
+    nome = body.nome || ''
+    telefone = body.telefone || ''
+  }
 
   if (!nome || !telefone) {
     return NextResponse.json({ erro: 'Nome e telefone são obrigatórios' }, { status: 400 })
@@ -28,9 +62,20 @@ export async function POST(
 
   const telefoneLimpo = telefone.replace(/\D/g, '')
 
+  const insertData: Record<string, unknown> = {
+    sorteio_id: id,
+    nome,
+    telefone: telefoneLimpo,
+  }
+
+  if (comprovanteUrl) {
+    insertData.comprovante_url = comprovanteUrl
+    insertData.comprovante_cloudinary_id = comprovanteCloudinaryId
+  }
+
   const { error } = await supabaseAdmin
     .from('sorteio_participantes')
-    .insert({ sorteio_id: id, nome, telefone: telefoneLimpo })
+    .insert(insertData)
 
   if (error) {
     if (error.code === '23505') {

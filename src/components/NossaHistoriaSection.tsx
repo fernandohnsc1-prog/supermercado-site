@@ -151,27 +151,7 @@ export default function NossaHistoriaSection() {
           ))}
         </div>
 
-        <div className={`mt-16 bg-gradient-to-r from-orange-500 to-orange-600 rounded-2xl p-8 md:p-12 text-white text-center shadow-xl transition-all duration-700 ${headerVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-          <h3 className="text-2xl md:text-3xl font-black mb-4">Nossas Lojas Hoje</h3>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-6">
-            <div className="bg-white/20 rounded-xl p-4 backdrop-blur-sm">
-              <p className="font-bold">Certo Atacado &amp; Varejo</p>
-              <p className="text-orange-100 text-sm">RS 115 — Taquara</p>
-            </div>
-            <div className="bg-white/20 rounded-xl p-4 backdrop-blur-sm">
-              <p className="font-bold">Certo Atacado &amp; Varejo</p>
-              <p className="text-orange-100 text-sm">Picada Gravatá — Taquara</p>
-            </div>
-            <div className="bg-white/20 rounded-xl p-4 backdrop-blur-sm">
-              <p className="font-bold">Certo Atacado &amp; Varejo</p>
-              <p className="text-orange-100 text-sm">Av. Sebastião Amoretti — Taquara</p>
-            </div>
-            <div className="bg-white/20 rounded-xl p-4 backdrop-blur-sm">
-              <p className="font-bold">Certo Atacado &amp; Varejo</p>
-              <p className="text-orange-100 text-sm">Centro de Parobé</p>
-            </div>
-          </div>
-        </div>
+
       </div>
     </section>
   )
