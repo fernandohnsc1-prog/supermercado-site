@@ -9,6 +9,12 @@ interface Imagem {
   ordem: number
 }
 
+interface Televendas {
+  id: string
+  nome: string
+  whatsapp: string
+}
+
 interface Encarte {
   id: string
   titulo: string
@@ -16,6 +22,7 @@ interface Encarte {
   data_inicio: string
   data_fim: string
   ativo: boolean
+  televendas: Televendas | null
   categoria: { nome: string; icone: string; cor: string }
   imagens: Imagem[]
 }
@@ -105,6 +112,11 @@ export default function EncartesPage() {
                           }}
                         >
                           {encarte.categoria.icone} {encarte.categoria.nome}
+                        </span>
+                      )}
+                      {encarte.televendas && (
+                        <span className="text-xs bg-green-50 text-green-600 px-2.5 py-1 rounded-full border border-green-200">
+                          📱 Televendas vinculado
                         </span>
                       )}
                       {vencido && (

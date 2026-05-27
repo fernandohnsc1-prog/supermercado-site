@@ -4,10 +4,13 @@ import { supabaseAdmin } from '@/lib/supabase'
 export async function GET() {
   const now = new Date().toISOString()
 
-  const [encartesRes, sorteiosRes, produtosRes, temaRes, categoriasRes] = await Promise.all([
+  const [encartesRes, sorteiosRes, produtosRes, temaRes, categoriasRes, televendasRes] = await Promise.all([
     supabaseAdmin
       .from('encartes')
-      .select(`*, categoria:categorias_encartes(id, nome, icone, cor), imagens:encarte_imagens(id, imagem_url, ordem)`)
+      .select(`*, 
+        categoria:categorias_encartes(id, nome, icone, cor), 
+        televendas:televendas(id, whatsapp, ativo),
+        imagens:encarte_imagens(id, imagem_url, ordem)`)
       .eq('ativo', true)
       .gte('data_fim', now.split('T')[0])
       .order('ordem'),
@@ -34,6 +37,11 @@ export async function GET() {
       .select('*')
       .eq('ativo', true)
       .order('ordem'),
+    supabaseAdmin
+      .from('televendas')
+      .select('*')
+      .eq('ativo', true)
+      .single(),
   ])
 
   return NextResponse.json({
@@ -42,5 +50,6 @@ export async function GET() {
     produtos: produtosRes.data ?? [],
     tema: temaRes.data ?? null,
     categorias: categoriasRes.data ?? [],
+    televendas: televendasRes.data ?? null,
   })
 }

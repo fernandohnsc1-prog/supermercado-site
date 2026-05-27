@@ -1,14 +1,51 @@
 'use client'
 
+import { useEffect, useState } from 'react'
 import CertoLogo from './CertoLogo'
 
+interface Tema {
+  cor_primaria: string
+  cor_secundaria: string
+  cor_fundo: string
+  cor_texto: string
+}
+
 export default function HeroSection() {
+  const [tema, setTema] = useState<Tema | null>(null)
+
+  useEffect(() => {
+    fetch('/api/site')
+      .then((r) => r.json())
+      .then((data) => {
+        if (data.tema) {
+          setTema(data.tema)
+          // Apply CSS variables
+          document.documentElement.style.setProperty('--hero-primary', data.tema.cor_primaria)
+          document.documentElement.style.setProperty('--hero-secondary', data.tema.cor_secundaria)
+        }
+      })
+  }, [])
+
+  // Convert hex to RGB for Tailwind opacity
+  const hexToRgb = (hex: string) => {
+    const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex)
+    return result ? `${parseInt(result[1], 16)}, ${parseInt(result[2], 16)}, ${parseInt(result[3], 16)}` : '249, 115, 22'
+  }
+
+  const primaryColor = tema?.cor_primaria || '#F97316'
+  const secondaryColor = tema?.cor_secundaria || '#EA580C'
+  const primaryRgb = hexToRgb(primaryColor)
+  const secondaryRgb = hexToRgb(secondaryColor)
+
   return (
-    <section id="inicio" className="relative bg-gradient-to-br from-orange-500 via-orange-600 to-orange-700 text-white overflow-hidden">
+    <section id="inicio" className="relative overflow-hidden" style={{ 
+      background: `linear-gradient(to bottom right, ${primaryColor}, ${secondaryColor})`,
+    }}>
+      {/* Background effects */}
       <div className="absolute inset-0 opacity-10">
         <div className="absolute top-10 left-10 w-40 h-40 bg-white rounded-full blur-3xl animate-pulse" />
         <div className="absolute bottom-10 right-10 w-60 h-60 bg-yellow-300 rounded-full blur-3xl animate-pulse [animation-delay:1s]" />
-        <div className="absolute top-1/2 left-1/2 w-32 h-32 bg-orange-300 rounded-full blur-2xl animate-pulse [animation-delay:2s]" />
+        <div className="absolute top-1/2 left-1/2 w-32 h-32 bg-white/30 rounded-full blur-2xl animate-pulse [animation-delay:2s]" />
       </div>
 
       <div className="max-w-7xl mx-auto px-4 py-20 md:py-32 relative z-10">
@@ -27,7 +64,7 @@ export default function HeroSection() {
             <div className="relative w-48 h-48 lg:w-56 lg:h-56 animate-float">
               <svg viewBox="0 0 200 200" className="w-full h-full drop-shadow-2xl">
                 {/* Corpo */}
-                <circle cx="100" cy="90" r="50" fill="#FFD4A3" stroke="#F97316" strokeWidth="3"/>
+                <circle cx="100" cy="90" r="50" fill="#FFD4A3" stroke={primaryColor} strokeWidth="3"/>
                 {/* Cabelo */}
                 <ellipse cx="100" cy="55" rx="52" ry="30" fill="#5C3317"/>
                 <ellipse cx="65" cy="70" rx="8" ry="25" fill="#5C3317"/>
@@ -44,8 +81,8 @@ export default function HeroSection() {
                 {/* Bochechas */}
                 <circle cx="72" cy="98" r="6" fill="#FFB5B5" opacity="0.5"/>
                 <circle cx="128" cy="98" r="6" fill="#FFB5B5" opacity="0.5"/>
-                {/* Avental/uniforme Certo */}
-                <path d="M60 130 Q100 125 140 130 L145 180 Q100 185 55 180 Z" fill="#F97316" stroke="#EA580C" strokeWidth="2"/>
+                {/* Avental/uniforme com tema */}
+                <path d="M60 130 Q100 125 140 130 L145 180 Q100 185 55 180 Z" fill={primaryColor} stroke={secondaryColor} strokeWidth="2"/>
                 {/* Checkmark no avental */}
                 <path d="M88 155 L97 164 L115 146" fill="none" stroke="white" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round"/>
                 {/* Braço esquerdo (puxando) */}
@@ -57,27 +94,35 @@ export default function HeroSection() {
               </svg>
 
               {/* Balão de fala */}
-              <div className="absolute -top-4 -right-4 bg-white text-orange-600 font-bold text-xs px-3 py-1.5 rounded-full shadow-lg animate-bounce [animation-duration:2s]">
+              <div 
+                className="absolute -top-4 -right-4 text-xs px-3 py-1.5 rounded-full shadow-lg animate-bounce [animation-duration:2s] font-bold"
+                style={{ backgroundColor: 'white', color: primaryColor }}
+              >
                 Vem! 🛒
               </div>
             </div>
           </div>
         </div>
 
-        <p className="mt-8 text-xl md:text-2xl text-orange-100 max-w-2xl mx-auto text-center animate-fadeIn [animation-delay:0.8s] opacity-0">
+        <p 
+          className="mt-8 text-xl md:text-2xl max-w-2xl mx-auto text-center animate-fadeIn [animation-delay:0.8s] opacity-0"
+          style={{ color: `rgb(${primaryRgb}, 0.8)` }}
+        >
           Os melhores preços do atacado e varejo para você e sua família!
         </p>
 
         <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4 animate-fadeIn [animation-delay:1.1s] opacity-0">
           <a
             href="#encartes"
-            className="bg-white text-orange-600 font-bold px-10 py-4 rounded-2xl text-lg hover:bg-orange-50 hover:scale-105 transition-all duration-300 shadow-xl"
+            className="font-bold px-10 py-4 rounded-2xl text-lg hover:scale-105 transition-all duration-300 shadow-xl"
+            style={{ backgroundColor: 'white', color: primaryColor }}
           >
             Ver encartes
           </a>
           <a
             href="#sorteios"
-            className="bg-orange-800/50 text-white font-bold px-10 py-4 rounded-2xl text-lg hover:bg-orange-800 hover:scale-105 transition-all duration-300 border border-orange-400/30"
+            className="font-bold px-10 py-4 rounded-2xl text-lg hover:scale-105 transition-all duration-300 border"
+            style={{ backgroundColor: `${primaryColor}40`, color: 'white', borderColor: `rgba(255,255,255,0.3)` }}
           >
             Participar de sorteios
           </a>

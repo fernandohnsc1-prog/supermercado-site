@@ -20,11 +20,20 @@ export async function GET() {
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json()
-    const { titulo, descricao, categoria_id, data_inicio, data_fim, imagens } = body
+    const { titulo, descricao, categoria_id, televendas_id, data_inicio, data_fim, imagens } = body
 
     const { data: encarte, error } = await supabaseAdmin
       .from('encartes')
-      .insert({ titulo, descricao, categoria_id, data_inicio, data_fim, ativo: true, ordem: 0 })
+      .insert({ 
+        titulo, 
+        descricao, 
+        categoria_id, 
+        televendas_id: televendas_id || null,
+        data_inicio, 
+        data_fim, 
+        ativo: true, 
+        ordem: 0 
+      })
       .select()
       .single()
 

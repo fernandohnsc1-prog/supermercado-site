@@ -10,6 +10,13 @@ interface Categoria {
   cor: string
 }
 
+interface Televendas {
+  id: string
+  nome: string
+  whatsapp: string
+  ativo: boolean
+}
+
 interface ImagemPreview {
   file: File
   preview: string
@@ -22,9 +29,11 @@ interface ImagemPreview {
 export default function NovoEncartePage() {
   const router = useRouter()
   const [categorias, setCategorias] = useState<Categoria[]>([])
+  const [televendas, setTelevendas] = useState<Televendas[]>([])
   const [titulo, setTitulo] = useState('')
   const [descricao, setDescricao] = useState('')
   const [categoriaId, setCategoriaId] = useState('')
+  const [televendasId, setTelevendasId] = useState('')
   const [dataInicio, setDataInicio] = useState('')
   const [dataFim, setDataFim] = useState('')
   const [imagens, setImagens] = useState<ImagemPreview[]>([])
@@ -33,9 +42,13 @@ export default function NovoEncartePage() {
   const [arrastando, setArrastando] = useState(false)
 
   useEffect(() => {
-    fetch('/api/categorias-encartes')
-      .then((r) => r.json())
-      .then(setCategorias)
+    Promise.all([
+      fetch('/api/categorias-encartes').then(r => r.json()),
+      fetch('/api/televendas').then(r => r.json()),
+    ]).then(([cats, tvs]) => {
+      setCategorias(Array.isArray(cats) ? cats : [])
+      setTelevendas(Array.isArray(tvs) ? tvs : [])
+    })
   }, [])
 
   const uploadImagem = useCallback(async (img: ImagemPreview, index: number) => {
@@ -121,6 +134,7 @@ export default function NovoEncartePage() {
         titulo,
         descricao,
         categoria_id: categoriaId || null,
+        televendas_id: televendasId || null,
         data_inicio: dataInicio,
         data_fim: dataFim,
         imagens: imagensFinais,
@@ -183,6 +197,27 @@ export default function NovoEncartePage() {
                 </option>
               ))}
             </select>
+          </div>
+
+          <div>
+            <label className="block text-sm text-gray-600 mb-1.5">Televendas (WhatsApp)</label>
+            <select
+              value={televendasId}
+              onChange={(e) => setTelevendasId(e.target.value)}
+              className="w-full bg-gray-50 border border-gray-300 text-gray-900 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-orange-500 focus:ring-2 focus:ring-orange-200 transition"
+            >
+              <option value="">Nenhum</option>
+              {televendas.map((tv) => (
+                <option key={tv.id} value={tv.id}>
+                  {tv.nome} - {tv.whatsapp}
+                </option>
+              ))}
+            </select>
+            {televendasId && (
+              <p className="text-xs text-green-600 mt-1">
+                Os clientes poderão clicar no WhatsApp do encarte para falar com a televendas
+              </p>
+            )}
           </div>
 
           <div className="grid grid-cols-2 gap-4">
