@@ -1,4 +1,7 @@
+'use client'
+
 import Link from 'next/link'
+import { useTheme } from './ThemeProvider'
 
 const lojas = [
   {
@@ -28,6 +31,10 @@ const lojas = [
 ]
 
 export default function SiteFooter() {
+  const tema = useTheme()
+  const primary = tema?.cor_primaria || '#EB6E10'
+  const secondary = tema?.cor_secundaria || '#F97316'
+
   return (
     <footer>
       {/* Nossas Lojas */}
@@ -69,7 +76,7 @@ export default function SiteFooter() {
       </div>
 
       {/* Footer principal */}
-      <div className="bg-orange-600 text-white">
+      <div className="text-white" style={{ backgroundColor: primary }}>
         <div className="max-w-7xl mx-auto px-4 py-12">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {/* Logo e slogan */}
@@ -156,7 +163,7 @@ export default function SiteFooter() {
       </div>
 
       {/* Formas de Pagamento */}
-      <div className="bg-orange-600">
+      <div style={{ backgroundColor: primary }}>
         <div className="max-w-4xl mx-auto px-4 pb-6">
           <div className="bg-white rounded-2xl p-8 text-center shadow-lg">
             <h3 className="text-lg font-black text-gray-800 tracking-wider mb-6">FORMAS DE PAGAMENTO</h3>
@@ -200,7 +207,7 @@ export default function SiteFooter() {
       </div>
 
       {/* Bottom bar */}
-      <div className="bg-orange-700 border-t border-orange-600">
+      <div className="border-t border-black/10" style={{ backgroundColor: primary, filter: 'brightness(0.85)' }}>
         <div className="max-w-7xl mx-auto px-4 py-4 flex flex-col sm:flex-row items-center justify-between gap-3">
           <p className="text-orange-200 text-xs">
             © {new Date().getFullYear()} Certo Atacado & Varejo. Todos os direitos reservados.

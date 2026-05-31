@@ -1,10 +1,17 @@
 'use client'
 
 import CertoLogo from './CertoLogo'
+import { useTheme } from './ThemeProvider'
 
 export default function HeroSection() {
+  const tema = useTheme()
+
+  const heroStyle = tema
+    ? { background: `linear-gradient(to right, ${tema.cor_primaria}, ${tema.cor_secundaria}, ${tema.cor_primaria})` }
+    : undefined
+
   return (
-    <section id="inicio" className="relative bg-gradient-to-r from-orange-600 via-orange-500 to-orange-600 text-white overflow-hidden">
+    <section id="inicio" className={`relative text-white overflow-hidden ${tema ? '' : 'bg-gradient-to-r from-orange-600 via-orange-500 to-orange-600'}`} style={heroStyle}>
       <div className="absolute inset-0 opacity-10">
         <div className="absolute top-10 left-10 w-40 h-40 bg-white rounded-full blur-3xl animate-pulse" />
         <div className="absolute bottom-10 right-10 w-60 h-60 bg-yellow-300 rounded-full blur-3xl animate-pulse [animation-delay:1s]" />

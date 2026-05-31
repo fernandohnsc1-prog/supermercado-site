@@ -94,11 +94,11 @@ export default function SorteiosSection() {
                 <div key={sorteio.id} className="embla__slide--2 px-3">
                   <div className="bg-white rounded-2xl overflow-hidden shadow-lg border border-orange-100 hover:shadow-2xl transition-all duration-300 hover:-translate-y-1">
                     {sorteio.imagem_url && (
-                      <div className="overflow-hidden">
+                      <div className="overflow-hidden aspect-[4/3]">
                         <img
                           src={sorteio.imagem_url}
                           alt={sorteio.titulo}
-                          className="w-full h-56 object-cover hover:scale-105 transition-transform duration-500"
+                          className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
                         />
                       </div>
                     )}
