@@ -10,20 +10,19 @@ export async function GET() {
       .select(`*, categoria:categorias_encartes(id, nome, icone, cor), imagens:encarte_imagens(id, imagem_url, ordem)`)
       .eq('ativo', true)
       .gte('data_fim', now.split('T')[0])
-      .order('ordem'),
+      .order('created_at', { ascending: false }),
     supabaseAdmin
       .from('sorteios')
       .select('*')
       .eq('ativo', true)
-      .eq('sorteado', false)
-      .gte('data_fim', now)
+      .gte('data_sorteio', now.split('T')[0])
       .order('created_at', { ascending: false }),
     supabaseAdmin
       .from('produtos')
       .select(`*, categoria:categorias_produtos(id, nome, icone)`)
       .eq('ativo', true)
       .eq('destaque', true)
-      .order('ordem'),
+      .order('created_at', { ascending: false }),
     supabaseAdmin
       .from('temas')
       .select('*')
@@ -33,7 +32,7 @@ export async function GET() {
       .from('categorias_encartes')
       .select('*')
       .eq('ativo', true)
-      .order('ordem'),
+      .order('created_at', { ascending: false }),
   ])
 
   return NextResponse.json({

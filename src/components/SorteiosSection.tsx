@@ -10,9 +10,8 @@ interface Sorteio {
   titulo: string
   descricao: string
   imagem_url: string | null
-  link_criterio: string | null
-  descricao_link: string | null
-  data_fim: string
+  premio: string | null
+  data_sorteio: string
 }
 
 export default function SorteiosSection() {
@@ -20,6 +19,7 @@ export default function SorteiosSection() {
   const [participando, setParticipando] = useState<string | null>(null)
   const [nome, setNome] = useState('')
   const [telefone, setTelefone] = useState('')
+  const [comprovante, setComprovante] = useState<File | null>(null)
   const [mensagem, setMensagem] = useState('')
   const [enviando, setEnviando] = useState(false)
   const { ref: revealRef, visible } = useScrollReveal()
@@ -48,10 +48,16 @@ export default function SorteiosSection() {
     setEnviando(true)
     setMensagem('')
 
+    const formData = new FormData()
+    formData.append('nome', nome)
+    formData.append('telefone', telefone)
+    if (comprovante) {
+      formData.append('comprovante', comprovante)
+    }
+
     const res = await fetch(`/api/sorteios/${sorteioId}/participar`, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ nome, telefone }),
+      body: formData,
     })
 
     const data = await res.json()
@@ -59,13 +65,14 @@ export default function SorteiosSection() {
       setMensagem('Inscrição realizada com sucesso! Boa sorte!')
       setNome('')
       setTelefone('')
+      setComprovante(null)
     } else {
       setMensagem(data.erro || 'Erro ao participar')
     }
     setEnviando(false)
   }
 
-  if (sorteios.length === 0) return null
+  if (sorteios.length === 0) return <section id="sorteios" />
 
   return (
     <section id="sorteios" className="py-16 bg-orange-50">
@@ -87,11 +94,11 @@ export default function SorteiosSection() {
                 <div key={sorteio.id} className="embla__slide--2 px-3">
                   <div className="bg-white rounded-2xl overflow-hidden shadow-lg border border-orange-100 hover:shadow-2xl transition-all duration-300 hover:-translate-y-1">
                     {sorteio.imagem_url && (
-                      <div className="overflow-hidden">
+                      <div className="overflow-hidden aspect-[4/3]">
                         <img
                           src={sorteio.imagem_url}
                           alt={sorteio.titulo}
-                          className="w-full h-56 object-cover hover:scale-105 transition-transform duration-500"
+                          className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
                         />
                       </div>
                     )}
@@ -100,20 +107,12 @@ export default function SorteiosSection() {
                       {sorteio.descricao && (
                         <p className="text-gray-500 text-sm mb-3">{sorteio.descricao}</p>
                       )}
-                      <p className="text-orange-600 text-xs font-medium mb-4">
-                        Participe até {new Date(sorteio.data_fim).toLocaleDateString('pt-BR')}
-                      </p>
-
-                      {sorteio.link_criterio && (
-                        <a
-                          href={sorteio.link_criterio}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="block bg-gradient-to-r from-purple-500 to-pink-500 text-white text-center text-sm font-semibold px-4 py-3 rounded-xl mb-4 hover:opacity-90 hover:scale-[1.02] transition-all duration-200"
-                        >
-                          {sorteio.descricao_link || 'Cumprir critério para participar'}
-                        </a>
+                      {sorteio.premio && (
+                        <p className="text-green-600 text-xs font-semibold mb-1">Prêmio: {sorteio.premio}</p>
                       )}
+                      <p className="text-orange-600 text-xs font-medium mb-4">
+                        Sorteio em {new Date(sorteio.data_sorteio + 'T00:00:00').toLocaleDateString('pt-BR')}
+                      </p>
 
                       {participando === sorteio.id ? (
                         <div className="space-y-3 animate-fadeIn">
@@ -131,6 +130,26 @@ export default function SorteiosSection() {
                             placeholder="(00) 00000-0000"
                             className="w-full bg-gray-50 border border-gray-300 text-gray-900 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-orange-500 focus:ring-2 focus:ring-orange-200 transition"
                           />
+                          <div>
+                            <label className="block text-xs text-gray-500 mb-1">Comprovante de compra (opcional)</label>
+                            <div
+                              className="border-2 border-dashed border-gray-300 rounded-xl p-3 text-center cursor-pointer hover:border-orange-300 transition"
+                              onClick={() => document.getElementById(`comprovante-${sorteio.id}`)?.click()}
+                            >
+                              {comprovante ? (
+                                <p className="text-green-600 text-sm font-medium">📷 {comprovante.name}</p>
+                              ) : (
+                                <p className="text-gray-400 text-sm">📷 Clique para enviar foto</p>
+                              )}
+                              <input
+                                id={`comprovante-${sorteio.id}`}
+                                type="file"
+                                accept="image/*"
+                                className="hidden"
+                                onChange={(e) => setComprovante(e.target.files?.[0] || null)}
+                              />
+                            </div>
+                          </div>
                           {mensagem && (
                             <p className={`text-sm ${mensagem.includes('sucesso') ? 'text-green-600' : 'text-red-500'}`}>
                               {mensagem}
@@ -144,7 +163,7 @@ export default function SorteiosSection() {
                             {enviando ? 'Enviando...' : 'Confirmar participação'}
                           </button>
                           <button
-                            onClick={() => { setParticipando(null); setMensagem('') }}
+                            onClick={() => { setParticipando(null); setMensagem(''); setComprovante(null) }}
                             className="w-full text-gray-500 text-sm hover:text-gray-700 transition"
                           >
                             Cancelar

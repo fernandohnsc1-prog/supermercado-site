@@ -8,11 +8,9 @@ interface Sorteio {
   titulo: string
   descricao: string
   imagem_url: string
-  data_inicio: string
-  data_fim: string
+  data_sorteio: string
+  premio: string | null
   ativo: boolean
-  sorteado: boolean
-  ganhador_id: string | null
 }
 
 export default function SorteiosPage() {
@@ -85,11 +83,7 @@ export default function SorteiosPage() {
               <div className="flex items-start justify-between gap-4">
                 <div className="flex-1">
                   <div className="flex items-center gap-2 mb-2">
-                    {sorteio.sorteado ? (
-                      <span className="text-xs bg-purple-50 text-purple-600 px-2.5 py-1 rounded-full border border-purple-200">
-                        Sorteado
-                      </span>
-                    ) : sorteio.ativo ? (
+                    {sorteio.ativo ? (
                       <span className="text-xs bg-green-50 text-green-600 px-2.5 py-1 rounded-full border border-green-200">
                         Ativo
                       </span>
@@ -101,8 +95,11 @@ export default function SorteiosPage() {
                   </div>
                   <h2 className="text-gray-800 font-semibold text-lg">{sorteio.titulo}</h2>
                   {sorteio.descricao && <p className="text-gray-500 text-sm mt-1">{sorteio.descricao}</p>}
+                  {sorteio.premio && (
+                    <p className="text-orange-600 text-xs font-medium mt-1">Prêmio: {sorteio.premio}</p>
+                  )}
                   <p className="text-gray-400 text-xs mt-2">
-                    {formatarData(sorteio.data_inicio)} até {formatarData(sorteio.data_fim)}
+                    Sorteio em {formatarData(sorteio.data_sorteio)}
                   </p>
                 </div>
                 {sorteio.imagem_url && (

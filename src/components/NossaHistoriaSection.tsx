@@ -2,130 +2,128 @@
 
 import { useEffect, useRef, useState } from 'react'
 
-interface TimelineEvent {
-  year: string
-  title: string
-  description: string
-  icon: string
-}
-
-const timelineEvents: TimelineEvent[] = [
+const timeline = [
   {
-    year: '1976',
-    title: 'Fundação do Grupo Müller',
-    description:
-      'O Grupo Müller foi fundado em 1976, em Taquara (RS), como uma empresa familiar do ramo supermercadista. O foco inicial era varejo tradicional. O grupo cresceu no Vale do Paranhana e manteve capital familiar.',
-    icon: '🏗️',
+    ano: '1976',
+    titulo: 'Fundação do Grupo Müller',
+    descricao: 'O Grupo Müller foi fundado em 1976, em Taquara (RS), como uma empresa familiar do ramo supermercadista. O foco inicial era varejo tradicional (mercado de bairro/supermercado). O grupo cresceu no Vale do Paranhana e manteve capital familiar.',
+    icone: '🏗️',
+    cor: 'from-amber-500 to-amber-600',
   },
   {
-    year: '1980–2000',
-    title: 'Consolidação Local',
-    description:
-      'O grupo se consolidou em Taquara e região como supermercado tradicional, ampliando presença no varejo alimentar e fortalecendo-se no município ao longo de duas décadas.',
-    icon: '📈',
+    ano: '1980–1990',
+    titulo: 'Consolidação local',
+    descricao: 'Nessa fase, o grupo foi se consolidando em Taquara e região como supermercado tradicional. A empresa ampliou presença no varejo alimentar e começou a se fortalecer no município.',
+    icone: '📈',
+    cor: 'from-orange-400 to-orange-500',
   },
   {
-    year: '2000–2010',
-    title: 'Expansão Regional',
-    description:
-      'Expansão das operações no Vale do Paranhana, fortalecendo lojas da marca Rede Müller em Taquara e Parobé. A empresa passou a trabalhar com açougue, hortifruti, padaria e maior variedade de produtos.',
-    icon: '🏪',
+    ano: '2000–2010',
+    titulo: 'Expansão regional',
+    descricao: 'O Grupo Müller expandiu suas operações no Vale do Paranhana, fortalecendo lojas da marca Rede Müller e ganhando presença em Taquara e Parobé. A empresa passou a trabalhar com açougue, hortifruti, padaria e maior variedade de produtos.',
+    icone: '🚀',
+    cor: 'from-orange-500 to-orange-600',
   },
   {
-    year: '2018',
-    title: 'Nasce o Certo Atacadista',
-    description:
-      'O Certo Atacadista de Taquara foi inaugurado na Av. Oscar Martins Rangel, bairro Santa Maria. A proposta era trabalhar como atacado e varejo (atacarejo), atendendo famílias e comerciantes da região com foco em preços baixos.',
-    icon: '🎉',
+    ano: '2018',
+    titulo: 'Nasce o Certo Atacadista',
+    descricao: 'O Certo Atacadista de Taquara foi aberto em 2018, na Avenida Oscar Martins Rangel, bairro Santa Maria. Criado pelos empresários Maurício Marcus Valandro e Adelina Teresinha Valandro, a proposta era trabalhar como atacado e varejo (atacarejo), atendendo famílias e comerciantes da região com foco em preços baixos e compra em volume.',
+    icone: '🎉',
+    cor: 'from-orange-600 to-red-500',
   },
   {
-    year: '2019',
-    title: 'Grupo Müller entra no Atacarejo',
-    description:
-      'O Grupo Müller inaugurou seu primeiro atacarejo, o M+ Atacado & Super, em Taquara, em 4 de abril de 2019, com mais de 6 mil itens, 42 funcionários e estacionamento.',
-    icon: '🚀',
+    ano: '2019',
+    titulo: 'Grupo Müller entra no atacarejo',
+    descricao: 'O Grupo Müller inaugurou seu primeiro atacarejo, chamado M+ Atacado & Super, em Taquara. A unidade abriu em 4 de abril de 2019, com mais de 6 mil itens, 42 funcionários, estacionamento e preços para varejo e atacado.',
+    icone: '🏪',
+    cor: 'from-red-500 to-red-600',
   },
   {
-    year: '2020–2021',
-    title: 'Crescimento na Pandemia',
-    description:
-      'O modelo atacarejo ganhou força no Brasil. O Certo cresceu atendendo famílias e comerciantes buscando economia, enquanto o Grupo Müller expandia sua presença nesse formato.',
-    icon: '💪',
+    ano: '2020–2021',
+    titulo: 'Crescimento durante a pandemia',
+    descricao: 'O modelo atacarejo ganhou força no Brasil inteiro, inclusive em Taquara. O Certo cresceu atendendo famílias e comerciantes buscando economia, enquanto o Grupo Müller expandia sua presença nesse formato.',
+    icone: '💪',
+    cor: 'from-orange-500 to-orange-600',
   },
   {
-    year: '2022',
-    title: 'Grande Virada: Aquisição do Certo',
-    description:
-      'Em agosto de 2022, o Grupo Müller adquiriu o Certo Atacadista. A loja ganhou padaria e fiambreria, atendendo pedidos dos clientes, e já recebia cerca de mil clientes por dia.',
-    icon: '🤝',
+    ano: '2022',
+    titulo: 'Grande virada: Grupo Müller compra o Certo',
+    descricao: 'Em agosto de 2022, o Grupo Müller adquiriu o Certo Atacadista. O Certo de Taquara ganhou padaria e fiambreria, atendendo pedidos dos clientes. A loja já recebia cerca de mil clientes por dia, incluindo moradores da região e do interior.',
+    icone: '🤝',
+    cor: 'from-orange-600 to-orange-700',
   },
   {
-    year: '2023',
-    title: 'Nasce "Certo Atacado & Varejo"',
-    description:
-      'Em março de 2023, o Grupo Müller anunciou a nova identidade visual: Certo Atacado & Varejo. As unidades M+ foram migradas para a marca Certo, unificando o negócio em Taquara e Parobé.',
-    icon: '✨',
+    ano: '2023',
+    titulo: 'Nasce "Certo Atacado & Varejo"',
+    descricao: 'Em março de 2023, o Grupo Müller anunciou oficialmente a nova identidade visual: Certo Atacado & Varejo. O grupo decidiu migrar suas lojas atacadistas da marca M+ Atacado & Super para a marca Certo, unificando o negócio. Taquara e Parobé receberam a nova marca.',
+    icone: '✨',
+    cor: 'from-orange-500 to-amber-500',
   },
   {
-    year: '2024',
-    title: 'Expansão e Fortalecimento',
-    description:
-      'A conversão para o formato Certo trouxe aumento de 42% no faturamento. O grupo anunciou planos de abrir novas unidades nos anos seguintes, consolidando a marca no mercado regional.',
-    icon: '📊',
+    ano: '2024',
+    titulo: 'Expansão e fortalecimento',
+    descricao: 'A mudança para o modelo atacarejo trouxe forte crescimento financeiro. Uma conversão para o formato Certo trouxe aumento de 42% no faturamento, e o grupo anunciou planos de abrir novas unidades nos anos seguintes.',
+    icone: '📊',
+    cor: 'from-amber-500 to-yellow-500',
   },
   {
-    year: '2025–2026',
-    title: 'Consolidação da Marca',
-    description:
-      'O Grupo Müller opera lojas Certo Atacado & Varejo e Rede Müller com presença forte em Taquara e Parobé, com expansão do atacarejo, clube de vantagens, promoções e geração de empregos na região.',
-    icon: '🏆',
+    ano: '2025–2026',
+    titulo: 'Consolidação da marca',
+    descricao: 'Hoje o Grupo Müller opera lojas da marca Certo Atacado & Varejo e Rede Müller, mantendo presença forte em Taquara e Parobé, com expansão do atacarejo, clube de vantagens, promoções e geração de empregos na região.',
+    icone: '🏆',
+    cor: 'from-yellow-500 to-orange-500',
   },
 ]
 
-const lojas = [
-  { cidade: 'Taquara', nome: 'Certo Atacado & Varejo – RS 115' },
-  { cidade: 'Taquara', nome: 'Certo Atacado & Varejo – Picada Gravatá' },
-  { cidade: 'Taquara', nome: 'Certo Atacado & Varejo – Av. Sebastião Amoretti' },
-  { cidade: 'Parobé', nome: 'Certo Atacado & Varejo – Centro de Parobé' },
-]
-
-function useTimelineReveal() {
-  const [visibleItems, setVisibleItems] = useState<Set<number>>(new Set())
-  const itemRefs = useRef<(HTMLDivElement | null)[]>([])
+function TimelineItem({ item, index }: { item: typeof timeline[0]; index: number }) {
+  const ref = useRef<HTMLDivElement>(null)
+  const [visible, setVisible] = useState(false)
+  const isLeft = index % 2 === 0
 
   useEffect(() => {
     const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            const index = Number(entry.target.getAttribute('data-index'))
-            setVisibleItems((prev) => new Set(prev).add(index))
-          }
-        })
-      },
-      { threshold: 0.2, rootMargin: '0px 0px -50px 0px' }
+      ([entry]) => { if (entry.isIntersecting) setVisible(true) },
+      { threshold: 0.2 }
     )
-
-    itemRefs.current.forEach((el) => {
-      if (el) observer.observe(el)
-    })
-
+    if (ref.current) observer.observe(ref.current)
     return () => observer.disconnect()
   }, [])
 
-  return { visibleItems, itemRefs }
+  return (
+    <div ref={ref} className={`flex items-center w-full mb-8 md:mb-12 ${isLeft ? 'md:flex-row' : 'md:flex-row-reverse'}`}>
+      <div className={`w-full md:w-5/12 transition-all duration-700 ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}
+        style={{ transitionDelay: `${index * 100}ms` }}>
+        <div className={`bg-white rounded-2xl p-6 shadow-lg border border-orange-100 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group`}>
+          <div className="flex items-center gap-3 mb-3">
+            <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${item.cor} flex items-center justify-center text-2xl shadow-md group-hover:scale-110 transition-transform`}>
+              {item.icone}
+            </div>
+            <div>
+              <span className="text-orange-600 font-black text-lg">{item.ano}</span>
+            </div>
+          </div>
+          <h3 className="text-lg font-bold text-gray-800 mb-2">{item.titulo}</h3>
+          <p className="text-gray-600 text-sm leading-relaxed">{item.descricao}</p>
+        </div>
+      </div>
+
+      <div className="hidden md:flex w-2/12 justify-center relative">
+        <div className={`w-5 h-5 bg-gradient-to-br ${item.cor} rounded-full border-4 border-white shadow-lg z-10 transition-all duration-500 ${visible ? 'scale-100' : 'scale-0'}`}
+          style={{ transitionDelay: `${index * 100 + 200}ms` }} />
+      </div>
+
+      <div className="hidden md:block w-5/12" />
+    </div>
+  )
 }
 
 export default function NossaHistoriaSection() {
-  const { visibleItems, itemRefs } = useTimelineReveal()
-  const [headerVisible, setHeaderVisible] = useState(false)
   const headerRef = useRef<HTMLDivElement>(null)
+  const [headerVisible, setHeaderVisible] = useState(false)
 
   useEffect(() => {
     const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) setHeaderVisible(true)
-      },
+      ([entry]) => { if (entry.isIntersecting) setHeaderVisible(true) },
       { threshold: 0.3 }
     )
     if (headerRef.current) observer.observe(headerRef.current)
@@ -133,156 +131,27 @@ export default function NossaHistoriaSection() {
   }, [])
 
   return (
-    <section id="nossa-historia" className="py-20 bg-gradient-to-b from-orange-50 via-white to-orange-50 overflow-hidden">
-      <div className="max-w-5xl mx-auto px-4">
-        {/* Header */}
-        <div
-          ref={headerRef}
-          className={`text-center mb-16 transition-all duration-700 ${headerVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
-        >
+    <section id="nossa-historia" className="py-20 bg-gradient-to-b from-orange-50 to-white">
+      <div className="max-w-6xl mx-auto px-4">
+        <div ref={headerRef} className={`text-center mb-16 transition-all duration-700 ${headerVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
           <span className="inline-block bg-orange-100 text-orange-600 text-sm font-semibold px-4 py-1.5 rounded-full mb-3">
             Quem somos
           </span>
-          <h2 className="text-3xl md:text-5xl font-extrabold text-gray-800">
+          <h2 className="text-3xl md:text-5xl font-black text-gray-800">
             Nossa História
           </h2>
-          <p className="text-gray-500 mt-3 max-w-xl mx-auto">
-            Uma trajetória de mais de 48 anos de tradição, crescimento e compromisso com a economia das famílias gaúchas.
-          </p>
+          <p className="text-gray-500 mt-3 text-lg">A trajetória do Certo Atacado &amp; Varejo — do Grupo Müller até hoje</p>
         </div>
 
-        {/* Timeline */}
         <div className="relative">
-          {/* Linha central */}
-          <div className="absolute left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-orange-300 via-orange-500 to-orange-300 -translate-x-1/2 hidden md:block" />
-          <div className="absolute left-6 top-0 bottom-0 w-0.5 bg-gradient-to-b from-orange-300 via-orange-500 to-orange-300 md:hidden" />
+          <div className="hidden md:block absolute left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-orange-300 via-orange-400 to-orange-300 -translate-x-1/2" />
 
-          <div className="space-y-12 md:space-y-16">
-            {timelineEvents.map((event, index) => {
-              const isLeft = index % 2 === 0
-              const isVisible = visibleItems.has(index)
-
-              return (
-                <div
-                  key={event.year}
-                  ref={(el) => { itemRefs.current[index] = el }}
-                  data-index={index}
-                  className={`relative flex items-start md:items-center transition-all duration-700 ease-out ${
-                    isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'
-                  }`}
-                  style={{ transitionDelay: `${index * 80}ms` }}
-                >
-                  {/* Mobile layout */}
-                  <div className="md:hidden flex items-start gap-4 w-full pl-14">
-                    {/* Dot on line */}
-                    <div className="absolute left-4 top-1 w-5 h-5 rounded-full bg-orange-500 border-4 border-white shadow-lg z-10 flex items-center justify-center">
-                      <div className={`w-2 h-2 rounded-full bg-white ${isVisible ? 'animate-ping-once' : ''}`} />
-                    </div>
-
-                    <div className="bg-white rounded-2xl p-5 shadow-lg border border-orange-100 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 w-full group">
-                      <div className="flex items-center gap-3 mb-3">
-                        <span className="text-2xl">{event.icon}</span>
-                        <span className="bg-orange-500 text-white text-xs font-bold px-3 py-1 rounded-full">
-                          {event.year}
-                        </span>
-                      </div>
-                      <h3 className="text-lg font-bold text-gray-800 mb-2 group-hover:text-orange-600 transition-colors">
-                        {event.title}
-                      </h3>
-                      <p className="text-gray-600 text-sm leading-relaxed">{event.description}</p>
-                    </div>
-                  </div>
-
-                  {/* Desktop layout */}
-                  <div className="hidden md:grid md:grid-cols-[1fr_auto_1fr] md:gap-8 w-full items-center">
-                    {/* Left side */}
-                    <div className={`${isLeft ? '' : 'order-3'}`}>
-                      {isLeft && (
-                        <div
-                          className={`bg-white rounded-2xl p-6 shadow-lg border border-orange-100 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group ${
-                            isVisible ? 'animate-slideInLeft' : 'opacity-0'
-                          }`}
-                          style={{ animationDelay: `${index * 80 + 200}ms`, animationFillMode: 'both' }}
-                        >
-                          <div className="flex items-center gap-3 mb-3">
-                            <span className="text-2xl">{event.icon}</span>
-                            <span className="bg-orange-500 text-white text-xs font-bold px-3 py-1 rounded-full">
-                              {event.year}
-                            </span>
-                          </div>
-                          <h3 className="text-lg font-bold text-gray-800 mb-2 group-hover:text-orange-600 transition-colors">
-                            {event.title}
-                          </h3>
-                          <p className="text-gray-600 text-sm leading-relaxed">{event.description}</p>
-                        </div>
-                      )}
-                    </div>
-
-                    {/* Center dot */}
-                    <div className="relative flex flex-col items-center order-2">
-                      <div className={`w-6 h-6 rounded-full bg-orange-500 border-4 border-white shadow-lg z-10 transition-transform duration-500 ${isVisible ? 'scale-100' : 'scale-0'}`}>
-                        <div className={`w-full h-full rounded-full ${isVisible ? 'animate-ping-once' : ''}`} style={{ background: 'rgba(249,115,22,0.4)' }} />
-                      </div>
-                    </div>
-
-                    {/* Right side */}
-                    <div className={`${isLeft ? 'order-3' : 'order-1'}`}>
-                      {!isLeft && (
-                        <div
-                          className={`bg-white rounded-2xl p-6 shadow-lg border border-orange-100 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group ${
-                            isVisible ? 'animate-slideInRight' : 'opacity-0'
-                          }`}
-                          style={{ animationDelay: `${index * 80 + 200}ms`, animationFillMode: 'both' }}
-                        >
-                          <div className="flex items-center gap-3 mb-3">
-                            <span className="text-2xl">{event.icon}</span>
-                            <span className="bg-orange-500 text-white text-xs font-bold px-3 py-1 rounded-full">
-                              {event.year}
-                            </span>
-                          </div>
-                          <h3 className="text-lg font-bold text-gray-800 mb-2 group-hover:text-orange-600 transition-colors">
-                            {event.title}
-                          </h3>
-                          <p className="text-gray-600 text-sm leading-relaxed">{event.description}</p>
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                </div>
-              )
-            })}
-          </div>
+          {timeline.map((item, i) => (
+            <TimelineItem key={item.ano} item={item} index={i} />
+          ))}
         </div>
 
-        {/* Nossas Lojas */}
-        <div className={`mt-20 transition-all duration-700 ${headerVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`} style={{ transitionDelay: '400ms' }}>
-          <div className="text-center mb-10">
-            <h3 className="text-2xl md:text-3xl font-extrabold text-gray-800">
-              Nossas Lojas
-            </h3>
-            <div className="w-16 h-1 bg-orange-500 mx-auto mt-3 rounded-full" />
-          </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            {lojas.map((loja) => (
-              <div
-                key={loja.nome}
-                className="bg-white rounded-2xl p-5 shadow-md border border-orange-100 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group"
-              >
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-full bg-orange-100 flex items-center justify-center flex-shrink-0 group-hover:bg-orange-500 transition-colors">
-                    <svg className="w-5 h-5 text-orange-600 group-hover:text-white transition-colors" fill="currentColor" viewBox="0 0 24 24">
-                      <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" />
-                    </svg>
-                  </div>
-                  <div>
-                    <span className="text-xs font-semibold text-orange-500 uppercase tracking-wider">{loja.cidade}</span>
-                    <p className="text-gray-800 font-bold text-sm">{loja.nome}</p>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
+
       </div>
     </section>
   )

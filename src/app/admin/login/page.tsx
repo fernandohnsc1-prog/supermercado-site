@@ -38,14 +38,14 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-orange-600 via-orange-500 to-orange-700 flex items-center justify-center px-4">
+    <div className="min-h-screen bg-gradient-to-br from-orange-400 via-orange-300 to-orange-500 flex items-center justify-center px-4">
       <div className="w-full max-w-md">
 
         {/* Logo / Título */}
         <div className="text-center mb-8">
           <div className="inline-flex items-center justify-center w-20 h-20 bg-white rounded-2xl mb-4 shadow-lg">
             <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
-              <circle cx="24" cy="24" r="22" fill="#F97316"/>
+              <circle cx="24" cy="24" r="22" fill="#EB6E10"/>
               <path d="M14 24L21 31L34 18" stroke="white" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round"/>
             </svg>
           </div>

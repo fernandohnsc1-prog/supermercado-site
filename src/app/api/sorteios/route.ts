@@ -13,11 +13,11 @@ export async function GET() {
 
 export async function POST(request: NextRequest) {
   const body = await request.json()
-  const { titulo, descricao, imagem_url, cloudinary_id, link_criterio, descricao_link, data_inicio, data_fim } = body
+  const { titulo, descricao, imagem_url, cloudinary_id, premio, data_sorteio } = body
 
   const { data, error } = await supabaseAdmin
     .from('sorteios')
-    .insert({ titulo, descricao, imagem_url, cloudinary_id, link_criterio, descricao_link, data_inicio, data_fim })
+    .insert({ titulo, descricao, imagem_url, cloudinary_id, premio, data_sorteio, ativo: true })
     .select()
     .single()
 
