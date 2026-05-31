@@ -33,7 +33,6 @@ const lojas = [
 export default function SiteFooter() {
   const tema = useTheme()
   const primary = tema?.cor_primaria || '#EB6E10'
-  const secondary = tema?.cor_secundaria || '#F97316'
 
   return (
     <footer>

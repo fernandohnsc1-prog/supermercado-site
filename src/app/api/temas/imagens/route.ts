@@ -28,7 +28,7 @@ export async function POST(request: NextRequest) {
     }
 
     return NextResponse.json({ sucesso: true })
-  } catch (err) {
+  } catch {
     return NextResponse.json({ erro: 'Erro ao salvar imagens' }, { status: 500 })
   }
 }
