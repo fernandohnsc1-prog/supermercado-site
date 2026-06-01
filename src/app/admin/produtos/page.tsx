@@ -10,6 +10,7 @@ interface Produto {
   preco_varejo: number
   preco_atacado: number
   unidade: string
+  quantidade_atacado?: number | null
   imagem_url: string
   destaque: boolean
   ativo: boolean
@@ -56,6 +57,16 @@ export default function ProdutosPage() {
   async function deletar(id: string) {
     if (!confirm('Deletar este produto?')) return
     await fetch(`/api/produtos/${id}`, { method: 'DELETE' })
+    carregar()
+  }
+
+  async function salvarQuantidade(id: string, valor: string) {
+    const quantidade = valor ? Math.max(1, parseInt(valor, 10) || 1) : 1
+    await fetch(`/api/produtos/${id}`, {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ quantidade_atacado: quantidade }),
+    })
     carregar()
   }
 
@@ -111,6 +122,22 @@ export default function ProdutosPage() {
                     <p className="text-green-600 font-bold">R$ {Number(produto.preco_atacado).toFixed(2)}</p>
                   </div>
                 )}
+              </div>
+              <div className="mt-3 pt-3 border-t border-orange-50">
+                <label className="block text-[11px] text-gray-500 mb-1">Atacado a partir de (unidades)</label>
+                <div className="flex items-center gap-2">
+                  <input
+                    type="number"
+                    min={1}
+                    defaultValue={produto.quantidade_atacado ?? 1}
+                    onBlur={(e) => {
+                      const novo = e.target.value || '1'
+                      if (String(produto.quantidade_atacado ?? 1) !== novo) salvarQuantidade(produto.id, novo)
+                    }}
+                    className="w-20 bg-gray-50 border border-gray-300 text-gray-800 rounded-lg px-2 py-1 text-xs focus:outline-none focus:border-orange-500"
+                  />
+                  <span className="text-[11px] text-gray-400">{(produto.quantidade_atacado ?? 1) > 1 ? `Cliente vê "Acima de ${produto.quantidade_atacado} unidades"` : 'Sem mínimo'}</span>
+                </div>
               </div>
               <div className="flex items-center gap-2 mt-3 pt-3 border-t border-orange-50">
                 <button onClick={() => toggleDestaque(produto.id, produto.destaque)}

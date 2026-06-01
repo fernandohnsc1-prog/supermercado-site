@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import { useParams } from 'next/navigation'
+import { formatDataBR } from '@/lib/format'
 
 interface Participante {
   id: string
@@ -18,6 +19,10 @@ interface Sorteio {
   premio: string | null
   data_sorteio: string
   ativo: boolean
+  sorteado?: boolean
+  ganhador_nome?: string | null
+  ganhador_telefone?: string | null
+  data_realizado?: string | null
   participantes: Participante[]
 }
 
@@ -73,6 +78,10 @@ export default function SorteioDetalhePage() {
   if (carregando) return <p className="text-gray-500">Carregando...</p>
   if (!sorteio) return <p className="text-gray-500">Sorteio não encontrado.</p>
 
+  const jaSorteado = !!sorteio.sorteado || !!ganhador
+  const ganhadorNome = ganhador?.nome || sorteio.ganhador_nome || null
+  const ganhadorWhats = ganhador?.whatsapp_link || (sorteio.ganhador_telefone ? formatWhatsAppLink(sorteio.ganhador_telefone) : '#')
+
   return (
     <div>
       <div className="mb-8">
@@ -82,16 +91,16 @@ export default function SorteioDetalhePage() {
           <p className="text-orange-600 text-sm font-medium mt-1">Prêmio: {sorteio.premio}</p>
         )}
         <p className="text-gray-400 text-xs mt-1">
-          Data do sorteio: {new Date(sorteio.data_sorteio + 'T00:00:00').toLocaleDateString('pt-BR')}
+          Data do sorteio: {formatDataBR(sorteio.data_sorteio)}
         </p>
       </div>
 
-      {ganhador && (
+      {ganhadorNome && (
         <div className="bg-green-50 border border-green-200 rounded-2xl p-6 mb-6">
           <h2 className="text-green-800 font-bold text-lg mb-2">Ganhador do sorteio!</h2>
-          <p className="text-green-700 text-xl font-semibold">{ganhador.nome}</p>
+          <p className="text-green-700 text-xl font-semibold">{ganhadorNome}</p>
           <a
-            href={ganhador.whatsapp_link}
+            href={ganhadorWhats}
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 mt-3 bg-green-600 hover:bg-green-700 text-white text-sm font-semibold px-5 py-2.5 rounded-xl transition"
@@ -103,7 +112,7 @@ export default function SorteioDetalhePage() {
       )}
 
       <div className="flex items-center gap-4 mb-6">
-        {sorteio.participantes.length > 0 && (
+        {!jaSorteado && sorteio.participantes.length > 0 && (
           <button
             onClick={realizarSorteio}
             disabled={sorteando}
@@ -111,6 +120,9 @@ export default function SorteioDetalhePage() {
           >
             {sorteando ? 'Sorteando...' : 'Realizar sorteio'}
           </button>
+        )}
+        {jaSorteado && (
+          <span className="text-xs bg-gray-200 text-gray-600 px-3 py-1.5 rounded-full">Sorteio já realizado</span>
         )}
         <span className="text-gray-500 text-sm">
           {sorteio.participantes.length} participante(s)

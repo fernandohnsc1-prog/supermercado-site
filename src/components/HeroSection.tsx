@@ -57,7 +57,7 @@ export default function HeroSection() {
             <div className="relative mt-3 flex justify-center animate-mascotEntrance">
               <div className="relative w-40 h-40 lg:w-48 lg:h-48 animate-float">
                 <img
-                  src="/mascote-certo.png"
+                  src={tema?.mascote_url || '/mascote-certo.png'}
                   alt="Mascote Certo Atacado"
                   className="w-full h-full object-contain drop-shadow-2xl"
                 />

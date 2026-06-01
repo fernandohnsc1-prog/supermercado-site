@@ -12,6 +12,7 @@ interface Produto {
   preco_varejo: number
   preco_atacado: number
   unidade: string
+  quantidade_atacado?: number | null
   imagem_url: string | null
   categoria: { nome: string; icone: string } | null
 }
@@ -58,15 +59,15 @@ export default function ProdutosSection() {
                 <div key={produto.id} className="embla__slide--3 px-3">
                   <div className="bg-white border border-gray-200 rounded-2xl overflow-hidden hover:shadow-2xl transition-all duration-300 group hover:-translate-y-1">
                     {produto.imagem_url ? (
-                      <div className="overflow-hidden">
+                      <div className="aspect-square bg-white flex items-center justify-center overflow-hidden p-4">
                         <img
                           src={produto.imagem_url}
                           alt={produto.nome}
-                          className="w-full h-44 object-cover group-hover:scale-110 transition-transform duration-500"
+                          className="max-w-full max-h-full object-contain group-hover:scale-105 transition-transform duration-500"
                         />
                       </div>
                     ) : (
-                      <div className="w-full h-44 bg-gradient-to-br from-orange-50 to-orange-100 flex items-center justify-center text-5xl">
+                      <div className="aspect-square bg-gradient-to-br from-orange-50 to-orange-100 flex items-center justify-center text-5xl">
                         📦
                       </div>
                     )}
@@ -85,11 +86,18 @@ export default function ProdutosSection() {
                           </span>
                         </div>
                         {produto.preco_atacado && (
-                          <div className="flex items-baseline gap-1">
-                            <span className="text-xs text-gray-400">Atacado:</span>
-                            <span className="text-green-600 font-bold text-sm">
-                              R$ {Number(produto.preco_atacado).toFixed(2)}
-                            </span>
+                          <div>
+                            <div className="flex items-baseline gap-1">
+                              <span className="text-xs text-gray-400">Atacado:</span>
+                              <span className="text-green-600 font-bold text-sm">
+                                R$ {Number(produto.preco_atacado).toFixed(2)}
+                              </span>
+                            </div>
+                            {produto.quantidade_atacado && produto.quantidade_atacado > 1 && (
+                              <span className="inline-block mt-1 text-[10px] font-semibold text-green-700 bg-green-50 border border-green-200 px-2 py-0.5 rounded-full">
+                                Acima de {produto.quantidade_atacado} unidades
+                              </span>
+                            )}
                           </div>
                         )}
                         <span className="text-[10px] text-gray-400">{produto.unidade}</span>
