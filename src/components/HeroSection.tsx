@@ -2,9 +2,11 @@
 
 import CertoLogo from './CertoLogo'
 import { useTheme } from './ThemeProvider'
+import { comFundoRemovido } from '@/lib/img'
 
 export default function HeroSection() {
   const tema = useTheme()
+  const mascoteSrc = tema?.mascote_url ? comFundoRemovido(tema.mascote_url) : '/mascote-certo.png'
 
   const heroStyle = tema
     ? { background: `linear-gradient(to right, ${tema.cor_primaria}, ${tema.cor_secundaria}, ${tema.cor_primaria})` }
@@ -57,7 +59,7 @@ export default function HeroSection() {
             <div className="relative mt-3 flex justify-center animate-mascotEntrance">
               <div className="relative w-40 h-40 lg:w-48 lg:h-48 animate-float">
                 <img
-                  src={tema?.mascote_url || '/mascote-certo.png'}
+                  src={mascoteSrc}
                   alt="Mascote Certo Atacado"
                   className="w-full h-full object-contain drop-shadow-2xl"
                 />
