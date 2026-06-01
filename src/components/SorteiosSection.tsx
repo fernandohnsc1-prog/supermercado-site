@@ -4,6 +4,7 @@ import { useEffect, useState, useCallback } from 'react'
 import useEmblaCarousel from 'embla-carousel-react'
 import Autoplay from 'embla-carousel-autoplay'
 import { useScrollReveal } from '@/hooks/useScrollReveal'
+import { formatDataBR } from '@/lib/format'
 
 interface Sorteio {
   id: string
@@ -111,7 +112,7 @@ export default function SorteiosSection() {
                         <p className="text-green-600 text-xs font-semibold mb-1">Prêmio: {sorteio.premio}</p>
                       )}
                       <p className="text-orange-600 text-xs font-medium mb-4">
-                        Sorteio em {new Date(sorteio.data_sorteio + 'T00:00:00').toLocaleDateString('pt-BR')}
+                        Sorteio em {formatDataBR(sorteio.data_sorteio)}
                       </p>
 
                       {participando === sorteio.id ? (

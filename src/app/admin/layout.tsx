@@ -11,6 +11,7 @@ const menuItems = [
   { href: '/admin/temas', label: 'Temas & Cores', icon: '🎨' },
   { href: '/admin/sorteios', label: 'Sorteios', icon: '🎰' },
   { href: '/admin/produtos', label: 'Produtos', icon: '📦' },
+  { href: '/admin/lojas', label: 'Lojas', icon: '🏪' },
 ]
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {

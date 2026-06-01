@@ -16,6 +16,7 @@ export default function NovoProdutoPage() {
   const [descricao, setDescricao] = useState('')
   const [precoVarejo, setPrecoVarejo] = useState('')
   const [precoAtacado, setPrecoAtacado] = useState('')
+  const [quantidadeAtacado, setQuantidadeAtacado] = useState('')
   const [unidade, setUnidade] = useState('un')
   const [categoriaId, setCategoriaId] = useState('')
   const [destaque, setDestaque] = useState(false)
@@ -63,6 +64,7 @@ export default function NovoProdutoPage() {
       body: JSON.stringify({
         nome, descricao, preco_varejo: parseFloat(precoVarejo),
         preco_atacado: precoAtacado ? parseFloat(precoAtacado) : null,
+        quantidade_atacado: quantidadeAtacado ? parseInt(quantidadeAtacado, 10) : 1,
         unidade, categoria_id: categoriaId || null, destaque,
         imagem_url: imagemUrl || null, cloudinary_id: cloudinaryId || null,
       }),
@@ -123,6 +125,14 @@ export default function NovoProdutoPage() {
                 <option value="lt">Litro</option>
               </select>
             </div>
+          </div>
+
+          <div>
+            <label className="block text-sm text-gray-600 mb-1.5">A partir de quantas unidades sai o preço de atacado?</label>
+            <input type="number" min="1" step="1" value={quantidadeAtacado} onChange={(e) => setQuantidadeAtacado(e.target.value)}
+              placeholder="Ex: 6 (deixe 1 ou vazio se não tiver mínimo)"
+              className="w-full bg-gray-50 border border-gray-300 text-gray-900 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-orange-500 focus:ring-2 focus:ring-orange-200 transition" />
+            <p className="text-xs text-gray-400 mt-1">O cliente verá &quot;Acima de X unidades&quot; quando o valor for maior que 1.</p>
           </div>
 
           <div className="grid grid-cols-2 gap-4">

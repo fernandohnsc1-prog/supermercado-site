@@ -22,7 +22,13 @@ export async function POST(
 
   const { error: errUpdate } = await supabaseAdmin
     .from('sorteios')
-    .update({ ativo: false })
+    .update({
+      ativo: false,
+      sorteado: true,
+      ganhador_nome: ganhador.nome,
+      ganhador_telefone: ganhador.telefone,
+      data_realizado: new Date().toISOString(),
+    })
     .eq('id', id)
 
   if (errUpdate) return NextResponse.json({ erro: errUpdate.message }, { status: 500 })

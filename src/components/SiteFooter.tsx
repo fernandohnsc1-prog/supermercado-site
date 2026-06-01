@@ -1,9 +1,18 @@
 'use client'
 
 import Link from 'next/link'
+import { useEffect, useState } from 'react'
 import { useTheme } from './ThemeProvider'
 
-const lojas = [
+interface LojaDisplay {
+  nome: string
+  endereco: string
+  bairro: string
+  mapsLink: string
+  imagemUrl?: string | null
+}
+
+const lojasFallback: LojaDisplay[] = [
   {
     nome: 'Certo Atacado & Varejo - RS 115',
     endereco: 'Av. Oscar Martins Rangel, 3621',
@@ -33,6 +42,30 @@ const lojas = [
 export default function SiteFooter() {
   const tema = useTheme()
   const primary = tema?.cor_primaria || '#EB6E10'
+  const [lojasApi, setLojasApi] = useState<LojaDisplay[]>([])
+
+  useEffect(() => {
+    let active = true
+    fetch('/api/site')
+      .then((r) => r.json())
+      .then((data) => {
+        if (!active || !Array.isArray(data?.lojas)) return
+        const mapeadas: LojaDisplay[] = data.lojas.map((l: {
+          nome: string; endereco?: string | null; bairro?: string | null; maps_link?: string | null; imagem_url?: string | null
+        }) => ({
+          nome: l.nome,
+          endereco: l.endereco ?? '',
+          bairro: l.bairro ?? '',
+          mapsLink: l.maps_link ?? `https://maps.google.com/?q=${encodeURIComponent(l.nome)}`,
+          imagemUrl: l.imagem_url ?? null,
+        }))
+        setLojasApi(mapeadas)
+      })
+      .catch(() => {})
+    return () => { active = false }
+  }, [])
+
+  const lojas = lojasApi.length > 0 ? lojasApi : lojasFallback
 
   return (
     <footer>
@@ -55,13 +88,18 @@ export default function SiteFooter() {
                   rel="noopener noreferrer"
                   className="relative block h-48 bg-gradient-to-br from-orange-400 to-orange-600 overflow-hidden"
                 >
+                  {loja.imagemUrl && (
+                    <img src={loja.imagemUrl} alt={loja.nome} className="absolute inset-0 w-full h-full object-cover" />
+                  )}
                   <div className="absolute inset-0 bg-orange-500/80 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                     <svg width="40" height="40" viewBox="0 0 24 24" fill="white"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
                     <span className="text-white font-bold mt-2">Ver no Mapa</span>
                   </div>
-                  <div className="absolute inset-0 flex items-center justify-center opacity-30">
-                    <svg width="80" height="80" viewBox="0 0 24 24" fill="white"><path d="M19 6h-2c0-2.76-2.24-5-5-5S7 3.24 7 6H5c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm-7-3c1.66 0 3 1.34 3 3H9c0-1.66 1.34-3 3-3zm0 10c-2.76 0-5-2.24-5-5h2c0 1.66 1.34 3 3 3s3-1.34 3-3h2c0 2.76-2.24 5-5 5z"/></svg>
-                  </div>
+                  {!loja.imagemUrl && (
+                    <div className="absolute inset-0 flex items-center justify-center opacity-30">
+                      <svg width="80" height="80" viewBox="0 0 24 24" fill="white"><path d="M19 6h-2c0-2.76-2.24-5-5-5S7 3.24 7 6H5c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm-7-3c1.66 0 3 1.34 3 3H9c0-1.66 1.34-3 3-3zm0 10c-2.76 0-5-2.24-5-5h2c0 1.66 1.34 3 3 3s3-1.34 3-3h2c0 2.76-2.24 5-5 5z"/></svg>
+                    </div>
+                  )}
                 </a>
                 <div className="p-5 text-center">
                   <h3 className="text-orange-600 font-bold text-lg mb-2">{loja.nome}</h3>

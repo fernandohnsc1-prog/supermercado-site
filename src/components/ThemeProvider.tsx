@@ -7,6 +7,8 @@ interface Tema {
   cor_secundaria: string
   cor_fundo: string
   cor_texto: string
+  mascote_url?: string | null
+  verificados_url?: string | null
 }
 
 const ThemeContext = createContext<Tema | null>(null)

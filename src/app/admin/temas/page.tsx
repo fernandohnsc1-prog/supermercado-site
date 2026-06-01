@@ -10,6 +10,8 @@ interface Tema {
   cor_fundo: string
   cor_texto: string
   imagem_fundo: string | null
+  mascote_url?: string | null
+  verificados_url?: string | null
   ativo: boolean
 }
 
@@ -121,19 +123,25 @@ export default function TemasPage() {
 
   async function atualizarImagens() {
     if (!imagemMascote && !imagemVerificados) return
+    const temaAtivo = temas.find((t) => t.ativo)
+    if (!temaAtivo) {
+      alert('Ative um tema primeiro para aplicar as imagens a ele.')
+      return
+    }
     setSalvando(true)
-    const body: Record<string, string> = {}
+    const body: Record<string, string> = { id: temaAtivo.id }
     if (imagemMascote) body.mascote_url = imagemMascote
     if (imagemVerificados) body.verificados_url = imagemVerificados
-    await fetch('/api/temas/imagens', {
-      method: 'POST',
+    await fetch('/api/temas', {
+      method: 'PATCH',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(body),
     })
     setSalvando(false)
     setImagemMascote(null)
     setImagemVerificados(null)
-    alert('Imagens atualizadas! Recarregue o site para ver as mudanças.')
+    carregar()
+    alert(`Imagens aplicadas ao tema "${temaAtivo.nome}"! Recarregue o site para ver.`)
   }
 
   return (
@@ -274,11 +282,33 @@ export default function TemasPage() {
 
         {/* Image upload for mascote and verificados */}
         <div className="bg-white border border-orange-100 rounded-2xl p-6">
-          <h2 className="text-gray-800 font-semibold mb-2">Imagens personalizadas</h2>
-          <p className="text-gray-500 text-xs mb-4">Troque a mascote e o banner de verificados do site</p>
+          <h2 className="text-gray-800 font-semibold mb-2">Imagens do tema (hero / verificados)</h2>
+          <p className="text-gray-500 text-xs mb-4">
+            As imagens são salvas no tema <strong>ativo</strong>{temas.find((t) => t.ativo) ? ` ("${temas.find((t) => t.ativo)!.nome}")` : ''}. Os personagens da mascote do hero ficam flutuando automaticamente, e mudam junto quando você troca de tema.
+          </p>
+          {(() => {
+            const ativo = temas.find((t) => t.ativo)
+            if (!ativo || (!ativo.mascote_url && !ativo.verificados_url)) return null
+            return (
+              <div className="flex gap-4 mb-4">
+                {ativo.mascote_url && (
+                  <div className="text-center">
+                    <p className="text-[11px] text-gray-400 mb-1">Mascote atual</p>
+                    <img src={ativo.mascote_url} alt="" className="w-20 h-20 object-contain rounded-lg border bg-gray-50" />
+                  </div>
+                )}
+                {ativo.verificados_url && (
+                  <div className="text-center">
+                    <p className="text-[11px] text-gray-400 mb-1">Verificados atual</p>
+                    <img src={ativo.verificados_url} alt="" className="h-20 object-contain rounded-lg border bg-gray-50" />
+                  </div>
+                )}
+              </div>
+            )
+          })()}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
-              <label className="block text-sm text-gray-600 mb-2">Mascote do Hero</label>
+              <label className="block text-sm text-gray-600 mb-2">Mascote do Hero (bonecos)</label>
               {imagemMascote ? (
                 <div className="relative">
                   <img src={imagemMascote} alt="Nova mascote" className="w-full h-40 object-contain rounded-xl border bg-gray-50" />
