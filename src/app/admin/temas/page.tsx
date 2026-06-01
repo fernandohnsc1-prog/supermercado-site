@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import { comFundoRemovido } from '@/lib/img'
 
 interface Tema {
   id: string
@@ -118,6 +119,20 @@ export default function TemasPage() {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ id, ativo: true }),
     })
+    carregar()
+  }
+
+  async function excluirTema(tema: Tema) {
+    if (tema.ativo) {
+      alert('Não é possível excluir o tema ativo. Ative outro tema antes de excluir este.')
+      return
+    }
+    if (!confirm(`Excluir o tema "${tema.nome}"? Essa ação não pode ser desfeita.`)) return
+    const res = await fetch(`/api/temas?id=${tema.id}`, { method: 'DELETE' })
+    if (!res.ok) {
+      alert('Erro ao excluir o tema.')
+      return
+    }
     carregar()
   }
 
@@ -256,16 +271,27 @@ export default function TemasPage() {
                   >
                     <div className="flex items-center justify-between mb-2">
                       <span className="text-gray-800 font-medium text-sm">{tema.nome}</span>
-                      {tema.ativo ? (
-                        <span className="text-xs bg-orange-600 text-white px-2 py-0.5 rounded-full">Ativo</span>
-                      ) : (
-                        <button
-                          onClick={() => ativarTema(tema.id)}
-                          className="text-xs bg-gray-100 text-gray-600 px-3 py-1 rounded-full hover:bg-orange-100 hover:text-orange-600 transition"
-                        >
-                          Ativar
-                        </button>
-                      )}
+                      <div className="flex items-center gap-2">
+                        {tema.ativo ? (
+                          <span className="text-xs bg-orange-600 text-white px-2 py-0.5 rounded-full">Ativo</span>
+                        ) : (
+                          <button
+                            onClick={() => ativarTema(tema.id)}
+                            className="text-xs bg-gray-100 text-gray-600 px-3 py-1 rounded-full hover:bg-orange-100 hover:text-orange-600 transition"
+                          >
+                            Ativar
+                          </button>
+                        )}
+                        {!tema.ativo && (
+                          <button
+                            onClick={() => excluirTema(tema)}
+                            title="Excluir tema"
+                            className="text-xs bg-gray-100 text-gray-600 px-3 py-1 rounded-full hover:bg-red-100 hover:text-red-600 transition"
+                          >
+                            Excluir
+                          </button>
+                        )}
+                      </div>
                     </div>
                     <div className="flex gap-2">
                       <span className="w-6 h-6 rounded-full border" style={{ backgroundColor: tema.cor_primaria }} title="Primária" />
@@ -293,8 +319,8 @@ export default function TemasPage() {
               <div className="flex gap-4 mb-4">
                 {ativo.mascote_url && (
                   <div className="text-center">
-                    <p className="text-[11px] text-gray-400 mb-1">Mascote atual</p>
-                    <img src={ativo.mascote_url} alt="" className="w-20 h-20 object-contain rounded-lg border bg-gray-50" />
+                    <p className="text-[11px] text-gray-400 mb-1">Mascote (flutuando)</p>
+                    <img src={comFundoRemovido(ativo.mascote_url)} alt="" className="w-20 h-20 object-contain rounded-lg border bg-gray-50" />
                   </div>
                 )}
                 {ativo.verificados_url && (
