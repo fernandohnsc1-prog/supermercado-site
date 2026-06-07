@@ -25,6 +25,14 @@ const TEMAS_PRONTOS = [
   { nome: 'Festa Junina', cor_primaria: '#F59E0B', cor_secundaria: '#EF4444', cor_fundo: '#FFFBEB', cor_texto: '#1F2937' },
 ]
 
+function withBgRemoval(url: string | null | undefined): string | undefined {
+  if (!url) return undefined
+  if (url.includes('res.cloudinary.com') && url.includes('/upload/')) {
+    return url.replace('/upload/', '/upload/e_background_removal/q_auto,f_auto/')
+  }
+  return url
+}
+
 export default function TemasPage() {
   const [temas, setTemas] = useState<Tema[]>([])
   const [carregando, setCarregando] = useState(true)
@@ -118,6 +126,17 @@ export default function TemasPage() {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ id, ativo: true }),
     })
+    carregar()
+  }
+
+  async function excluirTema(id: string, nome: string) {
+    if (!confirm(`Excluir o tema "${nome}"? Esta ação não pode ser desfeita.`)) return
+    const res = await fetch(`/api/temas?id=${id}`, { method: 'DELETE' })
+    const data = await res.json()
+    if (!res.ok) {
+      alert(data.erro || 'Erro ao excluir tema.')
+      return
+    }
     carregar()
   }
 
@@ -267,11 +286,22 @@ export default function TemasPage() {
                         </button>
                       )}
                     </div>
-                    <div className="flex gap-2">
-                      <span className="w-6 h-6 rounded-full border" style={{ backgroundColor: tema.cor_primaria }} title="Primária" />
-                      <span className="w-6 h-6 rounded-full border" style={{ backgroundColor: tema.cor_secundaria }} title="Secundária" />
-                      <span className="w-6 h-6 rounded-full border" style={{ backgroundColor: tema.cor_fundo }} title="Fundo" />
-                      <span className="w-6 h-6 rounded-full border" style={{ backgroundColor: tema.cor_texto }} title="Texto" />
+                    <div className="flex items-center justify-between mt-2">
+                      <div className="flex gap-2">
+                        <span className="w-6 h-6 rounded-full border" style={{ backgroundColor: tema.cor_primaria }} title="Primária" />
+                        <span className="w-6 h-6 rounded-full border" style={{ backgroundColor: tema.cor_secundaria }} title="Secundária" />
+                        <span className="w-6 h-6 rounded-full border" style={{ backgroundColor: tema.cor_fundo }} title="Fundo" />
+                        <span className="w-6 h-6 rounded-full border" style={{ backgroundColor: tema.cor_texto }} title="Texto" />
+                      </div>
+                      {!tema.ativo && (
+                        <button
+                          onClick={() => excluirTema(tema.id, tema.nome)}
+                          className="text-xs text-red-500 hover:text-red-700 hover:bg-red-50 px-2 py-1 rounded-lg transition"
+                          title="Excluir tema"
+                        >
+                          Excluir
+                        </button>
+                      )}
                     </div>
                   </div>
                 ))}
@@ -294,7 +324,7 @@ export default function TemasPage() {
                 {ativo.mascote_url && (
                   <div className="text-center">
                     <p className="text-[11px] text-gray-400 mb-1">Mascote atual</p>
-                    <img src={ativo.mascote_url} alt="" className="w-20 h-20 object-contain rounded-lg border bg-gray-50" />
+                    <img src={withBgRemoval(ativo.mascote_url)} alt="" className="w-20 h-20 object-contain rounded-lg border bg-gray-50" />
                   </div>
                 )}
                 {ativo.verificados_url && (
@@ -311,7 +341,7 @@ export default function TemasPage() {
               <label className="block text-sm text-gray-600 mb-2">Mascote do Hero (bonecos)</label>
               {imagemMascote ? (
                 <div className="relative">
-                  <img src={imagemMascote} alt="Nova mascote" className="w-full h-40 object-contain rounded-xl border bg-gray-50" />
+                  <img src={withBgRemoval(imagemMascote) || ""} alt="Nova mascote" className="w-full h-40 object-contain rounded-xl border bg-gray-50" />
                   <button onClick={() => setImagemMascote(null)}
                     className="absolute top-2 right-2 bg-red-600 text-white w-6 h-6 rounded-full text-xs flex items-center justify-center">
                     ✕
