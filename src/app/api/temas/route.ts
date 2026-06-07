@@ -47,3 +47,29 @@ export async function PATCH(request: NextRequest) {
   if (error) return NextResponse.json({ erro: error.message }, { status: 500 })
   return NextResponse.json({ sucesso: true, data })
 }
+
+export async function DELETE(request: NextRequest) {
+  const { searchParams } = new URL(request.url)
+  const id = searchParams.get('id')
+
+  if (!id) return NextResponse.json({ erro: 'ID obrigatório' }, { status: 400 })
+
+  // Check if the theme is active — don't allow deleting the active theme
+  const { data: tema } = await supabaseAdmin
+    .from('temas')
+    .select('ativo')
+    .eq('id', id)
+    .single()
+
+  if (tema?.ativo) {
+    return NextResponse.json({ erro: 'Não é possível excluir o tema ativo. Ative outro tema primeiro.' }, { status: 400 })
+  }
+
+  const { error } = await supabaseAdmin
+    .from('temas')
+    .delete()
+    .eq('id', id)
+
+  if (error) return NextResponse.json({ erro: error.message }, { status: 500 })
+  return NextResponse.json({ sucesso: true })
+}
