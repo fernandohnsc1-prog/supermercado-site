@@ -95,7 +95,7 @@ export default function ProdutosSection() {
                             </div>
                             {produto.quantidade_atacado && produto.quantidade_atacado > 1 && (
                               <span className="inline-block mt-1 text-[10px] font-semibold text-green-700 bg-green-50 border border-green-200 px-2 py-0.5 rounded-full">
-                                Acima de {produto.quantidade_atacado} unidades
+                            A partir de {produto.quantidade_atacado} unidades no clube
                               </span>
                             )}
                           </div>
