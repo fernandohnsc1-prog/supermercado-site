@@ -3,6 +3,16 @@
 import CertoLogo from './CertoLogo'
 import { useTheme } from './ThemeProvider'
 
+function withBgRemoval(url: string | null | undefined): string {
+  if (!url) return '/mascote-certo.png'
+  // Apply Cloudinary background removal transformation if it's a Cloudinary URL
+  // Insert e_background_removal/q_auto,f_auto after /upload/ in the URL
+  if (url.includes('res.cloudinary.com') && url.includes('/upload/')) {
+    return url.replace('/upload/', '/upload/e_background_removal/q_auto,f_auto/')
+  }
+  return url
+}
+
 export default function HeroSection() {
   const tema = useTheme()
 
@@ -57,7 +67,7 @@ export default function HeroSection() {
             <div className="relative mt-3 flex justify-center animate-mascotEntrance">
               <div className="relative w-40 h-40 lg:w-48 lg:h-48 animate-float">
                 <img
-                  src={tema?.mascote_url || '/mascote-certo.png'}
+                  src={withBgRemoval(tema?.mascote_url)}
                   alt="Mascote Certo Atacado"
                   className="w-full h-full object-contain drop-shadow-2xl"
                 />
